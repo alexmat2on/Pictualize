@@ -1,0 +1,39 @@
+body{
+  font-family: 'Didact Gothic', sans-serif;
+  color: black;
+  padding: 0;
+  margin: 0;
+  background: white;
+}
+
+.container{
+  max-width: 960px;
+  width: 96%;
+  margin: auto;
+}
+
+/*----------------------HEADER-----------------------*/
+
+header {
+  background: #ADFF2F;
+  padding: 20px 20px;
+  overflow: hidden;
+}
+
+.signup {
+  background: #FFF0F5;
+  padding: 20px;
+}
+
+.form-sign-in {
+  float: right;
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+
+.form-sign-up {
+  position: relative;
+  max-width: 100px;
+  margin: 0 auto;
+}
