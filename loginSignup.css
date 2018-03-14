@@ -20,10 +20,7 @@ header {
   overflow: hidden;
 }
 
-.signup {
-  background: #FFF0F5;
-  padding: 20px;
-}
+/*----------------------SIGNIN-----------------------*/
 
 .form-sign-in {
   float: right;
@@ -32,8 +29,40 @@ header {
   margin: 0 auto;
 }
 
+/*----------------------SIGNUP-----------------------*/
+
+.signup {
+  padding: 50px;
+}
+
 .form-sign-up {
   position: relative;
   max-width: 100px;
   margin: 0 auto;
+}
+
+.form-sign-up .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+
+#buttonSignUp {
+  position: relative;
+  margin: 0 auto;
+}
+
+/*----------------------FOOTER--------------------------*/
+footer{
+  background: yellow;
+  padding-top: 10px;
+  margin-top: -10px;
+  position: relative;
+  height: 40px;
+  clear: both;
+  height: 40px;
 }
