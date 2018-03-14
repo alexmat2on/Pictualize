@@ -1,0 +1,68 @@
+body{
+  font-family: 'Didact Gothic', sans-serif;
+  color: black;
+  padding: 0;
+  margin: 0;
+  background: white;
+}
+
+.container{
+  max-width: 960px;
+  width: 96%;
+  margin: auto;
+}
+
+/*----------------------HEADER-----------------------*/
+
+header {
+  background: #ADFF2F;
+  padding: 20px 20px;
+  overflow: hidden;
+}
+
+/*----------------------SIGNIN-----------------------*/
+
+.form-sign-in {
+  float: right;
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+
+/*----------------------SIGNUP-----------------------*/
+
+.signup {
+  padding: 50px;
+}
+
+.form-sign-up {
+  position: relative;
+  max-width: 100px;
+  margin: 0 auto;
+}
+
+.form-sign-up .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+
+#buttonSignUp {
+  position: relative;
+  margin: 0 auto;
+}
+
+/*----------------------FOOTER--------------------------*/
+footer{
+  background: yellow;
+  padding-top: 10px;
+  margin-top: -10px;
+  position: relative;
+  height: 40px;
+  clear: both;
+  height: 40px;
+}
