@@ -50,6 +50,12 @@ def drawText(img, textstr, position):
     draw.text((x + 2, y + 2), textstr, (0, 0, 0), font=font)
     draw.text((x, y), textstr, (255, 255, 255), font=font)
 
+# Create the memes! ---------------------------------------------------------------
+# make sure output directory exists: 
+if not os.path.exists('random_memes'):
+    os.makedirs('random_memes')
+
+# loop through templates & randomly assign text
 count = 0
 for filename in os.listdir("base_imgs"):
     img = Image.open("base_imgs/" + filename)
