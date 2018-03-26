@@ -4,8 +4,6 @@ Team Members:
 * Jeter Gutierrez
 * Kelly Lu
 
-haha
-
 CS 336 DB Project, made in [Flask](https://code.tutsplus.com/tutorials/creating-a-web-app-from-scratch-using-python-flask-and-mysql--cms-22972).
 
 ## To-Do
