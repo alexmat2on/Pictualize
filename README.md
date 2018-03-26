@@ -22,5 +22,18 @@ CS 336 DB Project, made in [Flask](https://code.tutsplus.com/tutorials/creating-
 * Install flask-mysql with `pip install flask-mysql`
 * Go into the FlaskApp directory and execute `python app.py`.
 
+## MySQL Tunnel Connection
+* Run `ssh -L 9999:134.74.146.21:3306 -N USERNAME@134.74.126.104`, where USERNAME == the
+ first four letters of your last name and the last four digits of your EMPLID all lowercase. 
+
+* This command creates an SSH tunnel that connects your local computer to the CCNY computer lab. 
+
+* Leave it running in a terminal, without exiting out. 
+
+* In another terminal, you can now connect to the school database by using the command 
+  `mysql -h 127.0.0.1 --port 9999 --user JCSP18XXYYYY -p` to get access to the MySQL command line.
+
+* Replace `XXYYYY` with your appropriate information.  
+
 The app connects to a local MySQL instance, which must contain a database called `Pictualize`,
 and will run by default on `localhost:5000`
