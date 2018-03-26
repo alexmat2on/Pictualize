@@ -34,6 +34,7 @@ CREATE TABLE SavedImages (
 	saved_imageID INT FOREIGN KEY REFERENCES Images(imageID)
 );
 
+
 CREATE TABLE Posts (
 	postID INT PRIMARY KEY,
 	userID VARCHAR(25) FOREIGN KEY REFERENCES Users(userID),
