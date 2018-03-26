@@ -20,6 +20,21 @@ print(conn)
 def main():
     return render_template('index.html')
 
+@app.route("/",methods=['POST'])
+def signUp():
+
+    _firstname = request.form['inputFirstName']
+    _lastname = request.form['inputLastName']
+    _email = request.form['intputEmail']
+    _username = request.form['inputUsername']
+
+    # validate the received values
+    if _firstname and _lastname and _email and _username:
+        return json.dumps({'html':'<span>All fields good !!</span>'})
+    else:
+        return json.dumps({'html':'<span>Enter the required fields</span>'})
+
+
 
 if __name__ == "__main__":
     app.run()
