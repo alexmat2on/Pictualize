@@ -7,8 +7,9 @@ CREATE TABLE Images (
 );
 
 CREATE TABLE ImageTags (
-	imageID INT FOREIGN KEY REFERENCES Images(imageId),
+	imageID INT,
 	tag VARCHAR(10),
+ 	FOREIGN KEY (imageID) REFERENCES Images(imageId)
 );
 
 CREATE TABLE Users (
@@ -20,31 +21,41 @@ CREATE TABLE Users (
 );
 
 CREATE TABLE Profiles (
-	userID VARCHAR(25) FOREIGN KEY REFERENCES Users(userID),
-	avatarID VARCHAR(255)
+	userID VARCHAR(25), 
+	avatarID VARCHAR(255),
+	FOREIGN KEY (userID) REFERENCES Users(userID)
 );
 
 CREATE TABLE Follows (
-	userID VARCHAR(25) FOREIGN KEY REFERENCES Users(userID),
-	followed_userID VARCHAR(25) FOREIGN KEY REFERENCES Users(userID,
+	userID VARCHAR(25),
+	followed_userID VARCHAR(25),
+	FOREIGN KEY (userID) REFERENCES Users(userID),
+	FOREIGN KEY (followed_userID) REFERENCES Users(userID)
 );
 
 CREATE TABLE SavedImages (
-	userID VARCHAR(25) FOREIGN KEY REFERENCES Users(userID),
-	saved_imageID INT FOREIGN KEY REFERENCES Images(imageID)
+	userID VARCHAR(25), 
+	FOREIGN KEY (userID )REFERENCES Users(userID),
+	saved_imageID INT, 
+	FOREIGN KEY (saved_imageID) REFERENCES Images(imageID)
 );
 
 
 CREATE TABLE Posts (
 	postID INT PRIMARY KEY,
-	userID VARCHAR(25) FOREIGN KEY REFERENCES Users(userID),
-	post_imageID INT FOREIGN KEY REFERENCES Images(imageID),
+	userID VARCHAR(25), 
+	FOREIGN KEY (userID) REFERENCES Users(userID),
+	post_imageID INT,
+	FOREIGN KEY (post_imageID)REFERENCES Images(imageID),
 	post_ts DATETIME not null
 );
 
 CREATE TABLE Replies (
-	postID INT FOREIGN KEY REFERENCES Posts(postID),
-	posterID VARCHAR(25) FOREIGN KEY REFERENCES Users(userID),
-	reply_imageID INT FOREIGN KEY REFERENCES Images(imageID),
+	postID INT, 
+	FOREIGN KEY (postID) REFERENCES Posts(postID),
+	posterID VARCHAR(25), 
+	FOREIGN KEY (posterID) REFERENCES Users(userID),
+	reply_imageID INT, 
+	FOREIGN KEY (reply_imageID) REFERENCES Images(imageID),
 	reply_ts DATETIME
 );
