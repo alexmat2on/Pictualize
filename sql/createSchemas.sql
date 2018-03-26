@@ -16,7 +16,6 @@ CREATE TABLE Users (
 	userID VARCHAR(25) PRIMARY KEY, /* usernames max 25 chars */
 	first_name VARCHAR(25),
 	last_name VARCHAR(25),
-	dob DATE,
 	email VARCHAR(20)	/* email should also be unique */
 );
 
