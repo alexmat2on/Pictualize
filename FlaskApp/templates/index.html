@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang = "en">
 <head>
+    <meta charset="UTF-8">
   <title>Pictualize - Login or Sign up</title>
   <!---fonts, format files CSS, etc...--->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
@@ -47,6 +48,25 @@
     <div id="footer">
       <p>&copy; 2018 Pictualize</p>
     </div>
+    <script src="../static/js/jquery.js"> </script>
+    <script >
+    $(function() {
+    $('#buttonSignUp').click(function() {
+
+        $.ajax({
+            url: '/signUp',
+            data: $('form').serialize(),
+            type: 'POST',
+            success: function(response) {
+                console.log(response);
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    });
+});
+</script>
   </footer>
 </body>
 </html>

@@ -20,7 +20,7 @@ print(conn)
 def main():
     return render_template('index.html')
 
-@app.route("/",methods=['POST'])
+@app.route("/signup",methods=['POST'])
 def signUp():
 
     _firstname = request.form['inputFirstName']
