@@ -14,7 +14,7 @@
         <!---PLACE THE LOGO PICTUALIZE--->
       </div>
       <div class="login">
-        <form class="form-sign-in">
+        <form id="login-form" class="form-sign-in">
           <label for="inputName" class="si-only"</label>
           <input type="Username" name="inputUsername" id="signinUsername" class="form-control" placeholder="Username" required autofocus>
           <!-- <label for="inputPassword" class"si-only"</label>
@@ -66,6 +66,24 @@
         });
     });
 });
+
+$(function() {
+$('#buttonLogin').click(function() {
+
+    $.ajax({
+        url: '/login',
+        data: $('#login-form').serialize(),
+        type: 'POST',
+        success: function(response) {
+            console.log("!!!", response);
+        },
+        error: function(p, status, error) {
+            console.log("???", status, error);
+        }
+    });
+});
+});
+
 </script>
   </footer>
 </body>

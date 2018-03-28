@@ -21,7 +21,7 @@ print(conn)
 def main():
     return render_template('index.html')
 
-@app.route("/signup",methods=['POST'])
+@app.route("/signup", methods=['POST'])
 def signup():
     _firstname = request.form['createFirstName']
     _lastname = request.form['createLastName']
@@ -36,6 +36,20 @@ def signup():
         return json.dumps({'message':'User created successfully !'}), 200
     else:
         return json.dumps({'errorrrr': str(data[0])})
+
+@app.route("/login", methods=['POST'])
+def login():
+    # _username = "Aidan.Marks"
+    _username = request.form['inputUsername']
+
+    cursor.execute("SELECT * FROM Users where userID=" + "'" + _username + "'")
+    data = cursor.fetchone()
+    if data is None:
+        return "Invalid username"
+    else:
+        return "Logged in successfully"
+
+
 
 if __name__ == "__main__":
     app.run()
