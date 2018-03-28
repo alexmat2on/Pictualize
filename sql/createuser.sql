@@ -7,26 +7,21 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `createUser`(
 )
 BEGIN
     if ( select exists (select 1 from Users where userID = user_id) ) THEN
-     
+
         select 'Username Exists !!';
-     
+
     ELSE
-     
+
         insert into Users
-        (
-            first_name,
-	    last_name,
-	    email,
-	    userID
-        )
+
         values
         (
+            user_id,
             firstname,
             lastname,
-            e_mail,
-	    user_id
+            e_mail
         );
-     
+
     END IF;
 END$$
 DELIMITER ;
