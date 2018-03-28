@@ -1,27 +1,32 @@
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `createUser`(
-    IN firstname VARCHAR(20),
-    IN lastname VARCHAR(20),
-    IN e_mail VARCHAR(20),
-    IN user_id varchar(25)
+  IN firstname VARCHAR(20),
+  IN lastname VARCHAR(20),
+  IN e_mail VARCHAR(20),
+  IN user_id varchar(25)
 )
 BEGIN
-    if ( select exists (select 1 from Users where userID = user_id) ) THEN
+if ( select exists (select 1 from Users where userID = user_id) ) THEN
 
-        select 'Username Exists !!';
+select 'Username Exists !!';
 
-    ELSE
+ELSE
 
-        insert into Users
+insert into Users
+  (
+    first_name,
+    last_name,
+    email,
+    userID
+  )
+  values
+  (
+    firstname,
+    lastname,
+    e_mail,
+    user_id
+  );
 
-        values
-        (
-            user_id,
-            firstname,
-            lastname,
-            e_mail
-        );
-
-    END IF;
-END$$
-DELIMITER ;
+  END IF;
+  END$$
+  DELIMITER ;
