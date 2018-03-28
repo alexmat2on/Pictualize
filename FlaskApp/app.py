@@ -23,12 +23,10 @@ def main():
 
 @app.route("/signup",methods=['POST'])
 def signup():
-    _firstname = request.form['inputFirstName']
-    _lastname = request.form['inputLastName']
-    _email = request.form['intputEmail']
-    _username = request.form['inputUsername']
-
-
+    _firstname = request.form['createFirstName']
+    _lastname = request.form['createLastName']
+    _email = request.form['createEmail']
+    _username = request.form['createUsername']
 
     cursor.callproc('createUser',(_firstname,_lastname,_email,_username))
 
@@ -38,7 +36,6 @@ def signup():
         return json.dumps({'message':'User created successfully !'}), 200
     else:
         return json.dumps({'errorrrr': str(data[0])})
-
 
 if __name__ == "__main__":
     app.run()
