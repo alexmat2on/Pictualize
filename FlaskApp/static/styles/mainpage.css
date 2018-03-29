@@ -1,0 +1,129 @@
+body{
+  font-family: 'Didact Gothic', sans-serif;
+  color: black;
+  padding: 0;
+  margin: 0;
+  background: white;
+}
+
+.container{
+  max-width: 960px;
+  width: 96%;
+  margin: auto;
+}
+
+/*------------------------------ header ---------------------------------*/
+
+header {
+  background: #ADFF2F;
+  padding: 20px 20px;
+  overflow: hidden;
+}
+
+nav {
+  float: right;
+  line-height: 70px;
+  font-weight: bolder;
+}
+
+nav li{
+  display: inline-block;
+  padding: 5px 20px;
+  margin-left: 10px;
+  background: #f3f3f3;
+  line-height: normal;
+}
+
+/*----------------------------- sidebar ------------------------------*/
+
+.sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+/*------------------------------ icon --------------------------------*/
+.sidebar-icon {
+  display: inline-block;
+  /* display: none; */
+  /* cursor: pointer; */
+}
+
+.bar1, .bar2, .bar3 {
+  width: 35px;
+  height: 5px;
+  background-color: #333;
+  margin: 6px 0;
+  transition: 0.4s;
+}
+
+
+/* rotate bar1 */
+.change .bar1 {
+  -webkit-transform: rotate(-45deg) translate(-9px, 6px);
+          transform: rotate(-45deg) translate(-9px, 6px);
+}
+
+/* fade out second bar */
+.change .bar2 {
+  opacity: 0;
+}
+
+/* rotate last bar */
+.change .bar3 {
+  -webkit-transform: rotate(45deg) translate(-8px, -8px);
+          transform: rotate(45deg) translate(-8px, -8px);
+}
+
+/*------------------------------ animation ---------------------------*/
+
+
+
+.sidebar a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.side a:hover {
+    color: #f1f1f1;
+}
+
+.sidebar .closeSidebar {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidebar {padding-top: 15px;}
+  .sidebar a {font-size: 18px;}
+}
+
+/*----------- footer ----------------*/
+
+.footer{
+  position: absolute;
+}
+
+#copywrite {
+  background: yellow;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 40px;
+  padding-left: 10px;
+  padding-bottom: 10px;
+}

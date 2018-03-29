@@ -1,11 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>Pictualize</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
   <link rel="stylesheet" href="../static/styles/mainpage.css">
 </head>
 <body>
+  <footer>
+    <div id="copywrite">
+      <p>&copy; 2018 Pictualize</p>
+    <div>
+  </footer>
+
   <header>
     <div class="container">
       <div id="logo">
@@ -21,9 +28,41 @@
     </div>
   </header>
   <div class="container">
-    
+    <div id="mySidebar" class="sidebar">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeSidebar()">&times;</a>
+      <!-- access databse for following list -->
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+
+
+
+    </div>
+    <span style="font-size:30px;cursor:pointer" onclick="openSidebar()">
+      <div class="sidebar-icon" onclick="myFunction(this)">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </div>
+    </span>
+
+
   </div>
 
+
+  <script>
+    // menu button
+    function myFunction(x) {
+      x.classList.toggle("change");
+    }
+
+    //animated sidebar
+    function openSidebar(){
+      document.getElementById("mySidebar").style.width="250px";
+    }
+    function closeSidebar(){
+      document.getElementById("mySidebar").style.width="0";
+    }
+  </script>
 
 </body>
 </html>
