@@ -14,7 +14,7 @@
         <!---PLACE THE LOGO PICTUALIZE--->
       </div>
       <div class="login">
-        <form class="form-sign-in">
+        <form id="login-form" class="form-sign-in">
           <label for="inputName" class="si-only"</label>
           <input type="Username" name="inputUsername" id="signinUsername" class="form-control" placeholder="Username" required autofocus>
           <!-- <label for="inputPassword" class"si-only"</label>
@@ -27,7 +27,7 @@
   <div class="container">
     <div class="signup">
       <h1> Create A New Account </h1>
-      <form class="form-sign-up">
+      <form id="signup-form" class="form-sign-up">
         <label for="inputFirstName" class="su-only"</label>
         <input type="FirstName" name="createFirstName" id="createFirstName" class="form-control" placeholder="First Name" required autofocus>
         <br>
@@ -38,7 +38,7 @@
         <input type="email" name="createEmail" id="createEmail" class="form-control" placeholder="E-Mail" required autofocus>
         <br>
         <label for="inputUsername" class"su-only"</label>
-        <input type="Username" name"createUsername" id="createUsername" class="form-control" placeholder="Username" required>
+        <input type="Username" name="createUsername" id="createUsername" class="form-control" placeholder="Username" required>
         <br>
         <button id="buttonSignUp" class="button-signup-primary" type="button">Sign up</button>
       </form>
@@ -54,18 +54,36 @@
     $('#buttonSignUp').click(function() {
 
         $.ajax({
-            url: '/signUp',
-            data: $('form').serialize(),
+            url: '/signup',
+            data: $('#signup-form').serialize(),
             type: 'POST',
             success: function(response) {
-                console.log(response);
+                console.log("!!!", response);
             },
-            error: function(error) {
-                console.log(error);
+            error: function(p, status, error) {
+                console.log("???", status, error);
             }
         });
     });
 });
+
+$(function() {
+$('#buttonLogin').click(function() {
+
+    $.ajax({
+        url: '/login',
+        data: $('#login-form').serialize(),
+        type: 'POST',
+        success: function(response) {
+            console.log("!!!", response);
+        },
+        error: function(p, status, error) {
+            console.log("???", status, error);
+        }
+    });
+});
+});
+
 </script>
   </footer>
 </body>

@@ -1,3 +1,5 @@
+Create Database Pictualize;
+use Pictualize;
 CREATE TABLE Images (
 	imageID INT PRIMARY KEY, /* not sure if this should be an int id or a varchar contiang path to image... */
 	img_size INT,
@@ -20,7 +22,7 @@ CREATE TABLE Users (
 );
 
 CREATE TABLE Profiles (
-	userID VARCHAR(25), 
+	userID VARCHAR(25),
 	avatarID VARCHAR(255),
 	FOREIGN KEY (userID) REFERENCES Users(userID)
 );
@@ -33,16 +35,16 @@ CREATE TABLE Follows (
 );
 
 CREATE TABLE SavedImages (
-	userID VARCHAR(25), 
+	userID VARCHAR(25),
 	FOREIGN KEY (userID )REFERENCES Users(userID),
-	saved_imageID INT, 
+	saved_imageID INT,
 	FOREIGN KEY (saved_imageID) REFERENCES Images(imageID)
 );
 
 
 CREATE TABLE Posts (
 	postID INT PRIMARY KEY,
-	userID VARCHAR(25), 
+	userID VARCHAR(25),
 	FOREIGN KEY (userID) REFERENCES Users(userID),
 	post_imageID INT,
 	FOREIGN KEY (post_imageID)REFERENCES Images(imageID),
@@ -50,11 +52,11 @@ CREATE TABLE Posts (
 );
 
 CREATE TABLE Replies (
-	postID INT, 
+	postID INT,
 	FOREIGN KEY (postID) REFERENCES Posts(postID),
-	posterID VARCHAR(25), 
+	posterID VARCHAR(25),
 	FOREIGN KEY (posterID) REFERENCES Users(userID),
-	reply_imageID INT, 
+	reply_imageID INT,
 	FOREIGN KEY (reply_imageID) REFERENCES Images(imageID),
 	reply_ts DATETIME
 );

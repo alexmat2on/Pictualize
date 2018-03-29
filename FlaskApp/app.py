@@ -13,6 +13,7 @@ app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 mysql.init_app(app)
 
 conn = mysql.connect()
+cursor=conn.cursor()
 
 print(conn)
 
@@ -20,19 +21,33 @@ print(conn)
 def main():
     return render_template('index.html')
 
-@app.route("/signup",methods=['POST'])
-def signUp():
+@app.route("/signup", methods=['POST'])
+def signup():
+    _firstname = request.form['createFirstName']
+    _lastname = request.form['createLastName']
+    _email = request.form['createEmail']
+    _username = request.form['createUsername']
 
-    _firstname = request.form['inputFirstName']
-    _lastname = request.form['inputLastName']
-    _email = request.form['intputEmail']
+    cursor.callproc('createUser',(_firstname,_lastname,_email,_username))
+
+    data = cursor.fetchall()
+    if len(data) is 0:
+        conn.commit()
+        return json.dumps({'message':'User created successfully !'}), 200
+    else:
+        return json.dumps({'errorrrr': str(data[0])})
+
+@app.route("/login", methods=['POST'])
+def login():
+    # _username = "Aidan.Marks"
     _username = request.form['inputUsername']
 
-    # validate the received values
-    if _firstname and _lastname and _email and _username:
-        return json.dumps({'html':'<span>All fields good !!</span>'})
+    cursor.execute("SELECT * FROM Users where userID=" + "'" + _username + "'")
+    data = cursor.fetchone()
+    if data is None:
+        return "Invalid username"
     else:
-        return json.dumps({'html':'<span>Enter the required fields</span>'})
+        return "Logged in successfully"
 
 
 
