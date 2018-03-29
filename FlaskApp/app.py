@@ -25,7 +25,8 @@ def main():
 
 @app.route("/home")
 def home():
-    return render_template('homepage.html')
+    links = ["http://lorempixel.com/640/480/food", "http://lorempixel.com/640/480/abstract", "http://lorempixel.com/640/480/sports", "http://lorempixel.com/640/480/"]
+    return render_template('homepage.html', picLinks = links)
 
 
 @app.route("/signup", methods=['POST'])
@@ -63,5 +64,6 @@ def upload():
     return render_template('upload.html')
 
 
+        return redirect("/home")
 if __name__ == "__main__":
     app.run(debug=True)
