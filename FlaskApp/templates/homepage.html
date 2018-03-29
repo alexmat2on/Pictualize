@@ -20,48 +20,47 @@
       </div>
       <div class="navigate">
         <nav>
-          <li>Notifications</li>
-          <li>User Settings</li>
           <li>Logout</li>
         </nav>
       </div>
+      <span style="font-size:30px;cursor:pointer" onclick="openSidebar()">
+        <div class="sidebar-icon" onclick="myFunction(this)">
+          <div class="bar1"></div>
+          <div class="bar2"></div>
+          <div class="bar3"></div>
+        </div>
+      </span>
     </div>
   </header>
-  <div class="container">
-    <div id="mySidebar" class="sidebar">
-      <a href="javascript:void(0)" class="closebtn" onclick="closeSidebar()">&times;</a>
+  <div id="SidebarContainer" class="sidebar">
+    <div class="Sidebar-content">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeSidebar()">
+        <div id="icon-close" class="sidebar-icon">
+          <div class="bar1"></div>
+          <div class="bar2"></div>
+          <div class="bar3"></div>
+        </div>
+      </a>
       <!-- access databse for following list -->
+      <a href="$">User Settings</a>
       <a href="#">About</a>
       <a href="#">Contact</a>
-
-
-
     </div>
-    <span style="font-size:30px;cursor:pointer" onclick="openSidebar()">
-      <div class="sidebar-icon" onclick="myFunction(this)">
-        <div class="bar1"></div>
-        <div class="bar2"></div>
-        <div class="bar3"></div>
-      </div>
-    </span>
-
-
   </div>
 
-  </div>
 
   <script>
-    // menu button
-    function myFunction(x) {
-      x.classList.toggle("change");
-    }
+    // // menu button
+    // function myFunction(x) {
+    //   x.classList.toggle("change");
+    // }
 
     //animated sidebar
     function openSidebar(){
-      document.getElementById("mySidebar").style.width="250px";
+      document.getElementById("SidebarContainer").style.width="250px";
     }
     function closeSidebar(){
-      document.getElementById("mySidebar").style.width="0";
+      document.getElementById("SidebarContainer").style.width="0";
     }
   </script>
 
