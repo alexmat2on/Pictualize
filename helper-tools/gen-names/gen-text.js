@@ -13,7 +13,9 @@ connection.connect();
 
 for (var x = 0; x < 25; x++) {
 	var top = faker.lorem.word();
+	var image = faker.image.image();
 
+	console.log(image);
   console.log(top);
   fs.writeFile("topMeme.txt", top, function (err) {
     if (err) throw err;

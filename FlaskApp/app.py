@@ -17,15 +17,14 @@ cursor=conn.cursor()
 
 print(conn)
 
-
-
 @app.route("/")
 def main():
     return render_template('index.html')
 
 @app.route("/home")
 def home():
-    return render_template('homepage.html')
+    links = ["http://lorempixel.com/640/480/food", "http://lorempixel.com/640/480/abstract", "http://lorempixel.com/640/480/sports", "http://lorempixel.com/640/480/"]
+    return render_template('homepage.html', picLinks = links)
 
 
 @app.route("/signup", methods=['POST'])

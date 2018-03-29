@@ -34,8 +34,6 @@
       <a href="#">About</a>
       <a href="#">Contact</a>
 
-
-
     </div>
     <span style="font-size:30px;cursor:pointer" onclick="openSidebar()">
       <div class="sidebar-icon" onclick="myFunction(this)">
@@ -44,9 +42,12 @@
         <div class="bar3"></div>
       </div>
     </span>
-
-
   </div>
+
+  {% for pic in picLinks %}
+    <img src={{ pic }} />
+  {% endfor %}
+
 
   </div>
 
