@@ -1,4 +1,4 @@
-from flask import Flask, render_template, json, request
+from flask import Flask, render_template, json, request, redirect
 from flask.ext.mysql import MySQL
 
 app = Flask(__name__)
@@ -17,9 +17,16 @@ cursor=conn.cursor()
 
 print(conn)
 
+
+
 @app.route("/")
 def main():
     return render_template('index.html')
+
+@app.route("/home")
+def home():
+    return render_template('homepage.html')
+
 
 @app.route("/signup", methods=['POST'])
 def signup():
@@ -33,7 +40,8 @@ def signup():
     data = cursor.fetchall()
     if len(data) is 0:
         conn.commit()
-        return json.dumps({'message':'User created successfully !'}), 200
+        return redirect("/home")
+        #return json.dumps({'message':'User created successfully !'}), 200
     else:
         return json.dumps({'errorrrr': str(data[0])})
 
@@ -47,9 +55,10 @@ def login():
     if data is None:
         return "Invalid username"
     else:
-        return "Logged in successfully"
+
+        return redirect("/home")
 
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
