@@ -10,12 +10,17 @@
 </style>
 </head>
 <body>
-  <input type='file' onchange="readURL(this);" />
+  <input id="picupl" type='file' />
     <img id="blah" src="#" alt="your image" />
 </body>
 <script src="../static/js/jquery.js"> </script>
 
 <script>
+
+$('#picupl').change(function() {
+  alert('dot change called');
+  readURL(this);
+})
 
 function readURL(input) {
         if (input.files && input.files[0]) {
