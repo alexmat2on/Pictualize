@@ -22,7 +22,7 @@ for (var x = 0; x < 50; x++) {
 	insertUserSQL += "'" + un + "',";
 	insertUserSQL += "'" + fn + "',";
 	insertUserSQL += "'" + ln + "',";
-	insertUserSQL += "'" + em + "'";
+	insertUserSQL += "'" + "'";
 	insertUserSQL += ")";
 
 	connection.query(insertUserSQL, function (err, result) {
@@ -32,15 +32,15 @@ for (var x = 0; x < 50; x++) {
 
 	// Give the user an Avatar
 	var insertAvatarSQL = 'INSERT INTO Profiles VALUES(';
-	insertAvatarSQL += "'" + un + "',";
-	insertAvatarSQL += "'" + av + "'";
-	insertAvatarSQL += ")";
+	// insertAvatarSQL += "'" + un + "',";
+	// insertAvatarSQL += "'" + av + "'";
+	// insertAvatarSQL += ")";
 
-	console.log(insertAvatarSQL);
-	connection.query(insertAvatarSQL, function (err, result) {
-		if (err) throw err;
-		console.log("inserted", insertAvatarSQL);
-	});
+	// console.log(insertAvatarSQL);
+	// connection.query(insertAvatarSQL, function (err, result) {
+	// 	if (err) throw err;
+	// 	console.log("inserted", insertAvatarSQL);
+	// });
 }
 
 connection.end();
