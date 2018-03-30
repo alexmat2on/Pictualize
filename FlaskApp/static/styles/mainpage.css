@@ -49,21 +49,8 @@ button{
     padding-top: 60px;
 }
 
-.sidebar-icon {
-  display: inline-block;
-  padding-top: 15px;
-  float: left;
-}
 
-.bar1, .bar2, .bar3 {
-  width: 35px;
-  height: 5px;
-  background-color: #333;
-  margin: 6px 0;
-  transition: 0.4s;
-}
-
-.Sidebar a {
+.sidebar a {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
     font-size: 25px;
@@ -76,11 +63,11 @@ button{
     color: #f1f1f1;
 }
 
-.sidebar .closeSidebar {
+.sidebar .closebtn {
     position: absolute;
     top: 0;
     right: 25px;
-    font-size: 36px;
+    font-size: 50px;
     margin-left: 50px;
 }
 
@@ -89,8 +76,18 @@ button{
   .sidebar a {font-size: 18px;}
 }
 
-#sidebar-close {
-  height: 30px;
+.sidebar-icon {
+  display: inline-block;
+  padding-top: 15px;
+  float: left;
+}
+
+.bar1, .bar2, .bar3 {
+  width: 35px;
+  height: 5px;
+  background-color: #333;
+  margin: 6px 0;
+  transition: 0.4s;
 }
 
 
