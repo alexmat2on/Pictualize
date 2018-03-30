@@ -16,18 +16,20 @@ connection.connect();
 
     var numRecords = result.length;
     var values = [];
-    for (var i = 0; i < numRecords; i++) {
+    for (var i = 0; i < numRecords - 1; i++) {
       var followers = [];
-      for (var j = i+1; j < numRecords; j++ ) {
-        console.log(j, "oop");
-        followers.push(result[i].userID);
-        followers.push(result[j].userID);
-      }
+      followers.push(result[i].userID);
+      followers.push(result[i+1].userID);
+      console.log(followers);
+      console.log('---');
       values.push(followers);
-      console.log("---------------")
     }
 
-    var sql = "INSERT INTO Follows VALUES ?";
+    console.log(values);
+    var sql = "INSERT INTO Follows(userID, followed_userID) VALUES ?";
+    connection.query(sql, [values], function (err) {
+      if (err) throw err;
+    });
     console.log(result.length);
   })
 

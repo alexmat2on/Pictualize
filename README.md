@@ -11,11 +11,14 @@ CS 336 DB Project, made in [Flask](https://code.tutsplus.com/tutorials/creating-
 - [x] Write SQL statements to generate all 8 schemas (in `sql/`)
 - [x] Write a helper script in Python to auto-generate memes for future testing (in `helper-tools/`)
 - [x] Create appropriate table constraints for tables
-- [x] Connect sign-up form to MySQL backend
+- [x] Add HTML registration and login forms
+- [x] Use jQuery and AJAX to post registration data to Flask backend
+- [x] Use Flask to extract registration data and insert to database
+- [x] user registration SQL is written in a stored procedure
+- [x] Check login username to see if it exists in the database
 - [x] Write helper script to auto-generate fake users with fake posts
-- [ ] Create homescreen UI displaying other user's posts
-- [ ] Allow user to save other user's templates/images to personal library
-- [ ] Allow user to create new posts from image template and post
+- [x] Create homescreen UI displaying images
+- [x] Write javascript to generate random meme text
 
 ## Run
 * Install flask with `pip install flask`

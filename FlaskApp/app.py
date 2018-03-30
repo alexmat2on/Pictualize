@@ -23,7 +23,7 @@ def main():
 
 @app.route("/home")
 def home():
-    links = ["http://lorempixel.com/640/480/food", "http://lorempixel.com/640/480/abstract", "http://lorempixel.com/640/480/sports", "http://lorempixel.com/640/480/"]
+    links = ["http://lorempixel.com/640/480/food", "http://lorempixel.com/640/480/abstract", "http://lorempixel.com/640/480/sports", "http://lorempixel.com/640/480/car"]
     return render_template('homepage.html', picLinks = links)
 
 
