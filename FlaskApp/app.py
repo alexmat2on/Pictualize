@@ -64,6 +64,6 @@ def upload():
     return render_template('upload.html')
 
 
-        return redirect("/home")
+        
 if __name__ == "__main__":
     app.run(debug=True)
