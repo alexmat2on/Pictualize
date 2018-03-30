@@ -17,6 +17,8 @@ cursor=conn.cursor()
 
 print(conn)
 
+
+
 @app.route("/")
 def main():
     return render_template('index.html')
@@ -57,7 +59,11 @@ def login():
 
         return redirect("/home")
 
+@app.route("/upload")
+def upload():
+    return render_template('upload.html')
 
 
+        return redirect("/home")
 if __name__ == "__main__":
     app.run(debug=True)
