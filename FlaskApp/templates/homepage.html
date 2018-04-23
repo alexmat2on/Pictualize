@@ -4,15 +4,11 @@
   <meta charset="UTF-8">
   <title>Pictualize</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
+  <link rel="stylesheet" href="../static/styles/styles.css">
   <link rel="stylesheet" href="../static/styles/mainpage.css">
 </head>
 <body>
-  <footer>
-    <div id="copywrite">
-      <p>&copy; 2018 Pictualize</p>
-    <div>
-  </footer>
-
+  <div class="page">
   <header>
     <div class="container">
       <div id="logo">
@@ -21,26 +17,27 @@
       <div class="logout">
         <button type="button">Logout</button>
       </div>
-      <span style="font-size:30px;cursor:pointer" onclick="openSidebar()">
+      <!-- <span style="font-size:30px;cursor:pointer" onclick="openSidebar()">
         <div class="sidebar-icon" onclick="myFunction(this)">
           <div class="bar1"></div>
           <div class="bar2"></div>
           <div class="bar3"></div>
         </div>
-      </span>
+      </span> -->
     </div>
   </header>
-  <div id="sidebar-content" class="sidebar">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeSidebar()">&times;</a>
+  <!-- <div id="sidebar-content" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeSidebar()">&times;</a> -->
     <!-- access databse for following list-->
-    <a href="$">User Settings</a>
+    <!-- <a href="$">User Settings</a>
     <a href="#">About</a>
     <a href="#">Contact</a>
-  </div>
-
+  </div> -->
+  <div class="content">
   {% for pic in picLinks %}
     <img src={{ pic }} />
   {% endfor %}
+</div>
 
 
 
@@ -59,5 +56,9 @@
     }
   </script>
 
+  <footer>
+    <p>&copy; 2018 Pictualize</p>
+  </footer>
+</div>
 </body>
 </html>
