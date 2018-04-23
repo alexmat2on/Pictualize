@@ -8,8 +8,8 @@
   <link rel="stylesheet" href="../static/styles/loginSignup.css">
 </head>
 <body>
+  <div class="page">
   <header>
-    <div class="container">
       <div id="logo">
         <!---PLACE THE LOGO PICTUALIZE--->
       </div>
@@ -17,14 +17,11 @@
         <form id="login-form" action="/login" method="POST" class="form-sign-in">
           <label for="inputName" class="si-only"</label>
           <input type="Username" name="inputUsername" id="signinUsername" class="form-control" placeholder="Username" required autofocus>
-          <!-- <label for="inputPassword" class"si-only"</label>
-          <input type="password" name"inputPassword" id="inputPassword" class="form-control" placeholder="Password" required> -->
           <input id="buttonLogin" class="button-login-primary" type="submit" method="POST" value="Login">
         </form>
       </div>
-    </div>
   </header>
-  <div class="container">
+  <div class="content">
     <div class="signup">
       <h1> Create A New Account </h1>
       <form id="signup-form" action="/signup" method="POST" class="form-sign-up">
@@ -40,51 +37,51 @@
         <label for="inputUsername" class"su-only"</label>
         <input type="Username" name="createUsername" id="createUsername" class="form-control" placeholder="Username" required>
         <br>
-        <input id="buttonSignUp" class="button-signup-primary" type="submit" value="signup">
+        <input id="buttonSignUp" class="button-signup-primary" type="submit" value="Sign Up">
       </form>
     </div>
-  </div>
+</div>
   <footer>
-    <div id="footer">
       <p>&copy; 2018 Pictualize</p>
-    </div>
-    <script src="../static/js/jquery.js"> </script>
-    <script >
-    $(function() {
-    $('#buttonSignUp').click(function() {
+  </footer>
+</div>
 
-        $.ajax({
-            url: '/signup',
-            data: $('#signup-form').serialize(),
-            type: 'POST',
-            success: function(response) {
-                console.log("!!!", response);
-            },
-            error: function(p, status, error) {
-                console.log("???", status, error);
-            }
-        });
-    });
-});
-
+<script src="../static/js/jquery.js"> </script>
+<script >
 $(function() {
-$('#buttonLogin').click(function() {
+$('#buttonSignUp').click(function() {
 
     $.ajax({
-        url: '/login',
-        data: $('#login-form').serialize(),
+        url: '/signup',
+        data: $('#signup-form').serialize(),
         type: 'POST',
         success: function(response) {
             console.log("!!!", response);
         },
         error: function(p, status, error) {
-            console.log("SUCCESS", status, error);
+            console.log("???", status, error);
         }
     });
 });
 });
 
+$(function() {
+$('#buttonLogin').click(function() {
+
+$.ajax({
+    url: '/login',
+    data: $('#login-form').serialize(),
+    type: 'POST',
+    success: function(response) {
+        console.log("!!!", response);
+    },
+    error: function(p, status, error) {
+        console.log("SUCCESS", status, error);
+    }
+});
+});
+});
+
 </script>
-  </footer>
 </body>
 </html>
