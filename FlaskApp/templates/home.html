@@ -24,6 +24,7 @@
       </div>
       <div class="logout">
         <form action="/logout" method="GET">
+          <label for="buttonLugout">{{ session['username'] }}</label>
           <input id="buttonLogout" type="submit" value="Logout">
         </form>
       </div>

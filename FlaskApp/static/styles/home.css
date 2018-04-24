@@ -7,10 +7,12 @@
 }
 
 .navigation ul {
-  width: 35%;
   display: flex;
   list-style-type: none;
-  justify-content: space-between;
+}
+
+.navigation li {
+  margin-right: 25px;
 }
 
 .navigation li:hover {
