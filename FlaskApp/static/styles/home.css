@@ -6,6 +6,17 @@
   flex: 1;
 }
 
+.navigation ul {
+  width: 35%;
+  display: flex;
+  list-style-type: none;
+  justify-content: space-between;
+}
+
+.navigation li:hover {
+  color: #f0f;
+}
+
 .content {
   width: 100%;
   margin-top: 50px;
