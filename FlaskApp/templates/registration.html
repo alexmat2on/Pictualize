@@ -25,19 +25,11 @@
     <div class="signup">
       <h1> Create A New Account </h1>
       <form id="signup-form" action="/signup" method="POST" class="form-sign-up">
-        <label for="inputFirstName" class="su-only"</label>
-        <input type="FirstName" name="createFirstName" id="createFirstName" class="form-control" placeholder="First Name" required autofocus>
-        <br>
-        <label for="inputLastName" class="su-only"</label>
-        <input type="LastName" name="createLastName" id="createLastName" class="form-control" placeholder="Last Name" required autofocus>
-        <br>
-        <label for="inputEmail" class="su-only"</label>
-        <input type="email" name="createEmail" id="createEmail" class="form-control" placeholder="E-Mail" required autofocus>
-        <br>
-        <label for="inputUsername" class"su-only"</label>
-        <input type="Username" name="createUsername" id="createUsername" class="form-control" placeholder="Username" required>
-        <br>
-        <input id="buttonSignUp" class="button-signup-primary" type="submit" value="Sign Up">
+        <input type="text" name="createFirstName" placeholder="First Name" required><br>
+        <input type="text" name="createLastName" placeholder="Last Name" required><br>
+        <input type="email" name="createEmail" placeholder="E-Mail" required><br>
+        <input type="text" name="createUsername" placeholder="Username" required><br>
+        <input id="buttonSignUp" type="submit" value="Sign Up">
       </form>
     </div>
 </div>
