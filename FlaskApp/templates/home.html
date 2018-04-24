@@ -15,7 +15,9 @@
         <!---PLACE THE LOGO PICTUALIZE--->
       </div>
       <div class="logout">
-        <button type="button">Logout</button>
+        <form action="/logout" method="GET">
+          <input id="buttonLogout" type="submit" value="Logout">
+        </form>
       </div>
       <!-- <span style="font-size:30px;cursor:pointer" onclick="openSidebar()">
         <div class="sidebar-icon" onclick="myFunction(this)">
@@ -39,26 +41,26 @@
   {% endfor %}
 </div>
 
-
-
-  <script>
-    // // menu button
-    // function myFunction(x) {
-    //   x.classList.toggle("change");
-    // }
-
-    //animated sidebar
-    function openSidebar(){
-      document.getElementById("sidebar-content").style.width="300px";
-    }
-    function closeSidebar(){
-      document.getElementById("sidebar-content").style.width="0";
-    }
-  </script>
-
   <footer>
     <p>&copy; 2018 Pictualize</p>
   </footer>
 </div>
+
+<script src="../static/js/jquery.js"> </script>
+<script>
+  // // menu button
+  // function myFunction(x) {
+  //   x.classList.toggle("change");
+  // }
+
+  //animated sidebar
+  function openSidebar() {
+    document.getElementById("sidebar-content").style.width="300px";
+  }
+
+  function closeSidebar() {
+    document.getElementById("sidebar-content").style.width="0";
+  }
+</script>
 </body>
 </html>
