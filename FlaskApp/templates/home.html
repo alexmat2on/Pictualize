@@ -5,14 +5,14 @@
   <title>Pictualize</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
   <link rel="stylesheet" href="../static/styles/styles.css">
-  <link rel="stylesheet" href="../static/styles/mainpage.css">
+  <link rel="stylesheet" href="../static/styles/home.css">
 </head>
 <body>
   <div class="page">
   <header>
-    <div class="container">
       <div id="logo">
         <!---PLACE THE LOGO PICTUALIZE--->
+        <img width=40px src="../static/assets/pic1.png">
       </div>
       <div class="logout">
         <form action="/logout" method="GET">
@@ -26,7 +26,6 @@
           <div class="bar3"></div>
         </div>
       </span> -->
-    </div>
   </header>
   <!-- <div id="sidebar-content" class="sidebar">
     <a href="javascript:void(0)" class="closebtn" onclick="closeSidebar()">&times;</a> -->
@@ -37,7 +36,9 @@
   </div> -->
   <div class="content">
   {% for pic in picLinks %}
+  <div class="post">
     <img src={{ pic }} />
+  </div>
   {% endfor %}
 </div>
 
