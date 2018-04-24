@@ -22,9 +22,9 @@ def main():
     # Check if a user is logged in and show the respective page
     if 'username' in session:
         links = ["http://lorempixel.com/640/480/food", "http://lorempixel.com/640/480/abstract", "http://lorempixel.com/640/480/sports", "http://lorempixel.com/640/480/car"]
-        return render_template('homepage.html', picLinks = links)
+        return render_template('home.html', picLinks = links)
     else:
-        return render_template('index.html')
+        return render_template('registration.html')
 
 @app.route("/signup", methods=['POST'])
 def signup():
