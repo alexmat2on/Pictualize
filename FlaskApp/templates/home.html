@@ -12,32 +12,32 @@
   <header>
       <div id="logo">
         <!---PLACE THE LOGO PICTUALIZE--->
-        <img width=40px src="../static/assets/pic1.png">
+        <img width=40px src="../static/img_assets/pic1.png">
+      </div>
+      <div class="navigation">
+        <ul>
+          <li>Search-bar-placeholder</li>
+          <li>New Meme</li>
+          <li>Following</li>
+          <li>Profile</li>
+        </ul>
       </div>
       <div class="logout">
         <form action="/logout" method="GET">
           <input id="buttonLogout" type="submit" value="Logout">
         </form>
       </div>
-      <!-- <span style="font-size:30px;cursor:pointer" onclick="openSidebar()">
-        <div class="sidebar-icon" onclick="myFunction(this)">
-          <div class="bar1"></div>
-          <div class="bar2"></div>
-          <div class="bar3"></div>
-        </div>
-      </span> -->
   </header>
-  <!-- <div id="sidebar-content" class="sidebar">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeSidebar()">&times;</a> -->
-    <!-- access databse for following list-->
-    <!-- <a href="$">User Settings</a>
-    <a href="#">About</a>
-    <a href="#">Contact</a>
-  </div> -->
   <div class="content">
   {% for pic in picLinks %}
   <div class="post">
-    <img src={{ pic }} />
+    <span class="original_poster">poster's_username</span>
+    <img src={{ pic }} >
+    <ul>
+      <li>Save post</li>
+      <li>New with template</li>
+      <li>Reply</li>
+    </ul>
   </div>
   {% endfor %}
 </div>
@@ -48,20 +48,5 @@
 </div>
 
 <script src="../static/js/jquery.js"> </script>
-<script>
-  // // menu button
-  // function myFunction(x) {
-  //   x.classList.toggle("change");
-  // }
-
-  //animated sidebar
-  function openSidebar() {
-    document.getElementById("sidebar-content").style.width="300px";
-  }
-
-  function closeSidebar() {
-    document.getElementById("sidebar-content").style.width="0";
-  }
-</script>
 </body>
 </html>

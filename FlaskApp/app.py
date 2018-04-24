@@ -10,9 +10,11 @@ mysql = MySQL()
 app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT';
 
 # File upload directory
-UPLOAD_FOLDER = "static/img";
+UPLOAD_FOLDER = "static/img_user_gen";
+MEME_TEMPLATES = "static/img_base";
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['MEME_TEMPLATES'] = MEME_TEMPLATES
 
 # MySQL configurations
 app.config['MYSQL_DATABASE_USER'] = 'root'
@@ -31,9 +33,8 @@ def main():
     # Check if a user is logged in and show the respective page
     if 'username' in session:
         links = []
-        for filename in os.listdir("static/img/"):
+        for filename in os.listdir("static/img_base/"):
             links.append('/uploads/' + filename)
-        # links = ["http://lorempixel.com/640/480/food", "http://lorempixel.com/640/480/abstract", "http://lorempixel.com/640/480/sports", "http://lorempixel.com/640/480/car"]
         return render_template('home.html', picLinks = links)
     else:
         return render_template('registration.html')
@@ -83,7 +84,8 @@ def logout():
 def upload():
     return render_template('upload.html')
 
-## UPLOAD FILE TEST!!
+## UPLOAD FILE TEST!! ----------------------------------------------------------
+## -----------------------------------------------------------------------------
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -118,7 +120,7 @@ def upload_file():
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
-    return send_from_directory(app.config['UPLOAD_FOLDER'],
+    return send_from_directory(app.config['MEME_TEMPLATES'],
                                filename)
 
 if __name__ == "__main__":
