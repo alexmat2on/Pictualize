@@ -22,7 +22,7 @@ body {
 }
 
 header {
-  background: #ADFF2F;
+  background: #fbfbfb;
   padding: 20px;
 
   display: flex;
@@ -34,6 +34,6 @@ header {
 }
 
 footer {
-  background: yellow;
+  background: #ff8a00;
   padding-left: 15px;
 }
