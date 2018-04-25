@@ -34,7 +34,7 @@ def main():
     if 'username' in session:
         links = []
         for filename in os.listdir("static/img_base/"):
-            links.append('/uploads/' + filename)
+            links.append('/static/img_base/' + filename)
         return render_template('home.html', picLinks = links)
     else:
         return render_template('registration.html')
