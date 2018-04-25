@@ -7,18 +7,16 @@ Team Members:
 CS 336 DB Project, made in [Flask](https://code.tutsplus.com/tutorials/creating-a-web-app-from-scratch-using-python-flask-and-mysql--cms-22972).
 
 ## To-Do
-- [x] Began simple web app with Flask (in `FlaskApp/`) that establishes a DB connection
-- [x] Write SQL statements to generate all 8 schemas (in `sql/`)
-- [x] Write a helper script in Python to auto-generate memes for future testing (in `helper-tools/`)
-- [x] Create appropriate table constraints for tables
-- [x] Add HTML registration and login forms
-- [x] Use jQuery and AJAX to post registration data to Flask backend
-- [x] Use Flask to extract registration data and insert to database
-- [x] user registration SQL is written in a stored procedure
-- [x] Check login username to see if it exists in the database
-- [x] Write helper script to auto-generate fake users with fake posts
-- [x] Create homescreen UI displaying images
-- [x] Write javascript to generate random meme text
+- [x] Add asset branding
+- [x] Refactor CSS with Flexbox layouts
+- [ ] GODVIEW: Create a godview page as a helpful development tool. Godview will be an interactive HTML front-end to the database so we can see all the values from all the tables and it can help us visualize the database.
+- [ ] NEW POST PAGE: needs a non-hardcoded carousel (right now it is hardcoded). We'll need to add "left" and "right" buttons to cycle through base templates. Base templates will need to be fetched from the templates that the user has saved. I think we'll need a new table in the database to keep track of a user's saved templates/base images.
+- [ ] HOMEPAGE: needs to display the most recent posts that every user has posted. Right now it just iterates through and displays the base templates.
+- [ ] HOMEPAGE: save post item needs to be a button that will store the postID in the database for the logged in user.
+- [ ] HOMEPAGE: "make new post with template" will do two things; it will save the template to the user's library, and open the post editor to rewrite the top/bottom text.
+- [ ] HOMEPAGE: rename the "make new post with blah blah..." option to "fork post" for brevity.
+- [ ] PROFILE PAGE: create an HTML file for the profile page which will contain the current user's followers, followees, and library of templates. and other user info, idk.
+- [ ] FOLLOWING PAGE: display a feed of just the posts created by the people you are following.  
 
 ## Run
 * Install flask with `pip install flask`
