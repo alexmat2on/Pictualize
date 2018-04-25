@@ -5,11 +5,10 @@
   <title>Pictualize</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
   <link rel="stylesheet" href="{{ url_for('static', filename='styles/styles.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='styles/home.css') }}">
 </head>
 <body>
   <div class="page">
-  <header>
+    <header>
       <div id="logo">
         <!---PLACE THE LOGO PICTUALIZE--->
         <a href="/"><img src="{{ url_for('static', filename='img_assets/pic1.png') }}"></a>
@@ -23,34 +22,22 @@
           <li><a href="/godview">God View</a></li>
         </ul>
       </div>
-
       <div class="logout">
         <form action="/logout" method="GET">
           <label for="buttonLugout">{{ session['username'] }}</label>
           <input id="buttonLogout" type="submit" value="Logout">
         </form>
       </div>
-  </header>
-  <h1>Global Feed</h1>
-  <div class="content">
-  {% for pic in picLinks %}
-  <div class="post">
-    <span class="original_poster">poster's_username</span>
-    <img src={{ pic }} >
-    <ul>
-      <li>Save post</li>
-      <li>Make new post with template</li>
-      <li>Reply</li>
-    </ul>
+    </header>
+    <div class="content">
+      <h1>Godview</h1>
+      <p>This page will be a developer tool for us to use to display all information from the database.
+      This way we can more easily debug problems and make sure that data is being stored in the DB properly.</p>
+    </div>
+
+    <footer>
+      <p>&copy; 2018 Pictualize</p>
+    </footer>
   </div>
-  {% endfor %}
-</div>
-
-  <footer>
-    <p>&copy; 2018 Pictualize</p>
-  </footer>
-</div>
-
-<script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
 </body>
 </html>

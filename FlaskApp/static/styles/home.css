@@ -21,13 +21,16 @@
 
 .content {
   width: 100%;
-  margin-top: 50px;
   margin-bottom: 50px;
   display: grid;
   grid-template-columns: 25% 25% 25%;
   grid-column-gap: 10px;
   grid-row-gap: 50px;
   justify-content: space-around;
+}
+
+h1 {
+  margin-left: 50px;
 }
 
 .post {

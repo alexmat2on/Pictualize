@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pictualize</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/styles.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/create.css') }}">
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div id="logo">
+        <!---PLACE THE LOGO PICTUALIZE--->
+        <a href="/"><img src="{{ url_for('static', filename='img_assets/pic1.png') }}"></a>
+      </div>
+      <div class="navigation">
+        <ul>
+          <li><input type="text" name="search" placeholder="Search..."></li>
+          <li><a href="/new">New Meme</a></li>
+          <li><a href="/following">Following</a></li>
+          <li><a href="/profile">Profile</a></li>
+          <li><a href="/godview">God View</a></li>
+        </ul>
+      </div>
+      <div class="logout">
+        <form action="/logout" method="GET">
+          <label for="buttonLugout">{{ session['username'] }}</label>
+          <input id="buttonLogout" type="submit" value="Logout">
+        </form>
+      </div>
+    </header>
+    <div class="content">
+      <h1>New Post</h1>
+      <div class="editor">
+        <div class="carousel">
+          <div class="prev-base">
+            <img src="/uploads/Ancient-Aliens.jpg">
+          </div>
+
+          <div class="current-base">
+            <h2 id="top_text" class="memetext"></h2>
+            <h2 id="bot_text" class="memetext"></h2>
+            <img src="/uploads/Captain-Picard-Facepalm.jpg">
+          </div>
+
+          <div class="next-base">
+            <img src="/uploads/Creepy-Condescending-Wonka.jpg">
+          </div>
+        </div>
+        <div class="tools">
+          <input id="top_edit" type="text" placeholder="Top Text"></input><br>
+          <input id="bot_edit" type="text" placeholder="Bottom Text"></input><br>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p>&copy; 2018 Pictualize</p>
+    </footer>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+  <script>
+  $(document).ready(function() {
+    // Set the top and bottom text on the meme to the pre-existing values in the input boxes.
+    $("#top_text").html($("#top_edit").val());
+    $("#bot_text").html($("#bot_edit").val());
+
+    // As the user types data into the input boxes, modify the text overlays in real time.
+    $("#top_edit").keyup(function() {
+      var top = $(this).val();
+      $("#top_text").html(top);
+    });
+
+    $("#bot_edit").keyup(function() {
+      var bot = $(this).val();
+      $("#bot_text").html(bot);
+    });
+  });
+  </script>
+</body>
+</html>

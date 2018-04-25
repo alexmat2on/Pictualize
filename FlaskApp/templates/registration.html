@@ -5,15 +5,15 @@
   <title>Pictualize - Login or Sign up</title>
   <!---fonts, format files CSS, etc...--->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
-  <link rel="stylesheet" href="../static/styles/styles.css">
-  <link rel="stylesheet" href="../static/styles/registration.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/styles.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/registration.css') }}">
 </head>
 <body>
   <div class="page">
   <header>
       <div id="logo">
         <!---PLACE THE LOGO PICTUALIZE--->
-        <img height=40px src="../static/img_assets/pic2.png"> 
+        <img height=40px src="{{ url_for('static', filename='img_assets/pic2.png') }}">
       </div>
       <div class="login">
         <form action="/login" method="POST">
@@ -39,7 +39,7 @@
   </footer>
 </div>
 
-<script src="../static/js/jquery.js"> </script>
+<script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
 <script >
 $(function() {
 $('#buttonSignUp').click(function() {

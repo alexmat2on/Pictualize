@@ -80,6 +80,25 @@ def logout():
     session.pop('username', None)
     return redirect("/")
 
+@app.route("/new")
+def new():
+    if 'username' in session:
+        return render_template('create.html')
+    else:
+        return redirect("/")
+
+@app.route("/following")
+def following():
+    return "Coming soon"
+
+@app.route("/profile")
+def profile():
+    return "Hello, " + session['username']
+
+@app.route("/godview")
+def godview():
+    return render_template("godview.html")
+
 @app.route("/upload")
 def upload():
     return render_template('upload.html')
