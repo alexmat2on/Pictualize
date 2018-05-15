@@ -21,6 +21,11 @@ body {
   flex-direction: column;
 }
 
+.errors {
+  color: #f53;
+  padding-right: 5px;
+}
+
 header {
   background: #fbfbfb;
   padding: 20px;
@@ -39,6 +44,30 @@ header {
 
 label {
   margin-right: 15px;
+}
+
+table {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  border-spacing: 5px;
+}
+
+table td {
+  padding: 15px;
+  margin: 0;
+  border: 1px dotted #444;
+}
+
+th {
+  background-color: #444;
+  color: #eee;
+  padding: 10px;
+  border: 1px dotted #eee;
+}
+
+tr:nth-child(even) {
+    background-color: #eee;
 }
 
 footer {

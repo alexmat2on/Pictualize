@@ -5,7 +5,7 @@
   <title>Pictualize</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
   <link rel="stylesheet" href="{{ url_for('static', filename='styles/styles.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='styles/godview.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/create.css') }}">
 </head>
 <body>
   <div class="page">
@@ -30,38 +30,15 @@
         </form>
       </div>
     </header>
-    <div class="sidebar">
-      <h3>Tables</h3>
-      <ul>
-      {% for t in showTables %}
-      <li> <a href="/godview/{{ t[0] }}">{{ t[0] }}</a></li>
-      {% endfor %}
-    </ul>
-    </div>
     <div class="content">
-      <h1>{{ description }}</h1>
-      <h2>{{ tableName }}</h2>
-      <table id="userTable" class="dbTable">
-        <tr>
-          {% for meta in tableMeta %}
-          <th>{{ meta[0] }}</th>
-          {% endfor %}
-        </tr>
-        <tr>
-      {% for record in table %}
-      {% for field in record %}
-      <td>
-      {{ field }}
-    </td>
-      {% endfor %}
-    </tr>
-      {% endfor %}
-    </table>
+      <h1>Following</h1>
     </div>
 
     <footer>
       <p>&copy; 2018 Pictualize</p>
     </footer>
   </div>
+
+  <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
 </body>
 </html>

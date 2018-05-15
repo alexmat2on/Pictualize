@@ -1,0 +1,49 @@
+.page {
+  display: grid;
+  grid-template-columns: 20% 1fr;
+  grid-template-rows: auto 1fr auto;
+grid-template-areas:
+  "header header"
+  "sidebar content"
+  "footer footer";
+}
+
+#logo {
+  flex: 0;
+}
+
+header {
+  grid-area: header;
+}
+
+.navigation {
+  flex: 1;
+}
+
+.navigation ul {
+  display: flex;
+  list-style-type: none;
+}
+
+.navigation li {
+  margin-right: 25px;
+}
+
+.navigation li:hover {
+  color: #f0f;
+}
+
+.sidebar {
+  grid-area: sidebar;
+  margin-left: 50px;
+}
+
+.content {
+  grid-area: content;
+  margin-bottom: 50px;
+  margin-right: 100px; 
+}
+
+footer {
+  grid-area: footer;
+}

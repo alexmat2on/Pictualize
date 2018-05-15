@@ -65,7 +65,7 @@ def login():
     cursor.execute("SELECT * FROM Users where userID=" + "'" + _username + "'")
     data = cursor.fetchone()
     if data is None:
-        return "Invalid username"
+        return render_template('registration.html', errors="Invalid username")
     else:
         # When the username is in database, create a new session (cookie)
         #      for authenticating it on other pages.
@@ -87,17 +87,54 @@ def new():
     else:
         return redirect("/")
 
+@app.route("/makePost", methods=['POST'])
+def makePost():
+    if 'username' in session:
+        query = "SELECT"
+        cursor.execute(query)
+
 @app.route("/following")
 def following():
-    return "Coming soon"
+    if 'username' in session:
+        return render_template('following.html')
+    else:
+        return redirect("/")
 
 @app.route("/profile")
 def profile():
-    return "Hello, " + session['username']
+    if 'username' in session:
+        return "Hello, " + session['username']
+    else:
+        return redirect("/")
 
 @app.route("/godview")
 def godview():
-    return render_template("godview.html")
+    cursor.execute("SHOW TABLES")
+    showTables = cursor.fetchall()
+
+    description = "GodView is a nifty developer's web tool to dump and inspect the state of all the tables in the database. With great power comes great responsibility, young padawan."
+
+    return render_template("godview.html", showTables = showTables, description = description)
+
+@app.route("/godview/<tableName>")
+def godviewTable(tableName):
+    if 'username' in session:
+        cursor.execute("SHOW TABLES")
+        showTables = cursor.fetchall()
+
+        if (tableName):
+            getTable = "SELECT * FROM " + tableName;
+            cursor.execute(getTable)
+            table = cursor.fetchall()
+            tableMeta = cursor.description
+
+        return render_template("godview.html", \
+                                showTables = showTables, \
+                                table = table, \
+                                tableMeta = tableMeta, \
+                                tableName = tableName)
+    else:
+        return redirect("/")
 
 @app.route("/upload")
 def upload():
