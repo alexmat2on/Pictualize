@@ -20,13 +20,12 @@
 }
 
 .content {
-  width: 100%;
-  margin-bottom: 50px;
+  flex: 1;
+  margin: 50px;
   display: grid;
-  grid-template-columns: 25% 25% 25%;
-  grid-column-gap: 10px;
-  grid-row-gap: 50px;
-  justify-content: space-around;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-column-gap: 25px;
+  grid-row-gap: 25px;
 }
 
 h1 {

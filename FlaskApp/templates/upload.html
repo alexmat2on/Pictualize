@@ -1,40 +1,50 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset=utf-8 />
-<title>Uploading</title>
-
-<style>
-  article, aside, figure, footer, header, hgroup,
-  menu, nav, section { display: block; }
-</style>
+  <meta charset="UTF-8">
+  <title>Pictualize</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/styles.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/home.css') }}">
 </head>
 <body>
-  <input id="picupl" type='file' />
-    <img id="blah" src="#" alt="your image" />
-</body>
-<script src="../static/js/jquery.js"> </script>
+  <div class="page">
+    {% include "header.html" %}
 
-<script>
+    <div class="content">
+    <form method="post" enctype=multipart/form-data>
+    <input type=file name=file>
+    <input type=submit value=Upload>
+    <!-- <img id="blah" src="#" alt="your image" /> -->
+    </form>
+  </div>
 
-$('#picupl').change(function() {
-  alert('dot change called');
-  readURL(this);
-})
+    <footer>
+      <p>&copy; 2018 Pictualize</p>
+    </footer>
+  </div>
 
-function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-
-            reader.onload = function (e) {
-                $('#blah')
-                    .attr('src', e.target.result)
-                    .width(150)
-                    .height(200);
-            };
-
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
+  <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+  <script>
+  // $('#picupl').change(function() {
+  //   alert('dot change called');
+  //   readURL(this);
+  // })
+  //
+  // function readURL(input) {
+  //   if (input.files && input.files[0]) {
+  //     var reader = new FileReader();
+  //
+  //     reader.onload = function (e) {
+  //       $('#blah')
+  //       .attr('src', e.target.result)
+  //       .width(150)
+  //       .height(200);
+  //     };
+  //
+  //     reader.readAsDataURL(input.files[0]);
+  //   }
+  // }
 </script>
+</body>
 </html>

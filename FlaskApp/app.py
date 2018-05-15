@@ -1,4 +1,6 @@
 import os
+import hashlib
+from random import randint
 from flask import escape, Flask, json, redirect, render_template, request, send_from_directory, session, url_for
 from flask.ext.mysql import MySQL
 from werkzeug.utils import secure_filename
@@ -27,7 +29,7 @@ mysql.init_app(app)
 conn = mysql.connect()
 cursor = conn.cursor()
 
-# INDEX PAGE
+# APP ROUTES -------------------------------------------------------------------
 @app.route("/")
 def main():
     # Check if a user is logged in and show the respective page
@@ -48,7 +50,7 @@ def signup():
     _username = request.form['createUsername']
 
     # Insert the data into the Users table via a Stored Procedure
-    cursor.callproc('createUser',(_firstname,_lastname,_email,_username))
+    cursor.callproc('createUser', (_firstname,_lastname,_email,_username))
     data = cursor.fetchall()
     if len(data) is 0:
         conn.commit()
@@ -103,7 +105,7 @@ def following():
 @app.route("/profile")
 def profile():
     if 'username' in session:
-        return "Hello, " + session['username']
+        return render_template("profile.html")
     else:
         return redirect("/")
 
@@ -122,11 +124,10 @@ def godviewTable(tableName):
         cursor.execute("SHOW TABLES")
         showTables = cursor.fetchall()
 
-        if (tableName):
-            getTable = "SELECT * FROM " + tableName;
-            cursor.execute(getTable)
-            table = cursor.fetchall()
-            tableMeta = cursor.description
+        getTable = "SELECT * FROM " + tableName;
+        cursor.execute(getTable)
+        table = cursor.fetchall()
+        tableMeta = cursor.description
 
         return render_template("godview.html", \
                                 showTables = showTables, \
@@ -136,48 +137,46 @@ def godviewTable(tableName):
     else:
         return redirect("/")
 
-@app.route("/upload")
+@app.route("/upload", methods=['GET', 'POST'])
 def upload():
-    return render_template('upload.html')
+    if 'username' in session:
+        if request.method == 'POST':
+            # check if the post request has the file part
+            if 'file' not in request.files:
+                flash('No file part')
+                return redirect(request.url)
+            file = request.files['file']
+            # if user does not select file, browser also
+            # submit a empty part without filename
+            if file.filename == '':
+                flash('No selected file')
+                return redirect(request.url)
+            if file and allowed_file(file.filename):
+                # filename = secure_filename(file.filename)
+                stringToHash = file.filename + session['username'] + str(randint(0, 10000))
+                fileExtension = "." + file.filename.rsplit('.', 1)[1].lower()
 
-## UPLOAD FILE TEST!! ----------------------------------------------------------
-## -----------------------------------------------------------------------------
+                filename = hashlib.md5(stringToHash.encode('utf-8')).hexdigest() + fileExtension
+                file.save(os.path.join(app.config['MEME_TEMPLATES'], filename))
+                
+                return redirect(url_for('uploaded_template',
+                                        filename=filename))
+
+        return render_template('upload.html')
+    else:
+        return redirect("/")
+
+@app.route('/templates/<filename>')
+def uploaded_template(filename):
+    return send_from_directory(app.config['MEME_TEMPLATES'],
+                               filename)
+
+## END APP ROUTES --------------------------------------------------------------
+
+# AUX FUNCTIONS ----------------------------------------------------------------
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-@app.route('/uptest', methods=['GET', 'POST'])
-def upload_file():
-    if request.method == 'POST':
-        # check if the post request has the file part
-        if 'file' not in request.files:
-            flash('No file part')
-            return redirect(request.url)
-        file = request.files['file']
-        # if user does not select file, browser also
-        # submit a empty part without filename
-        if file.filename == '':
-            flash('No selected file')
-            return redirect(request.url)
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return redirect(url_for('uploaded_file',
-                                    filename=filename))
-    return '''
-    <!doctype html>
-    <title>Upload new File</title>
-    <h1>Upload new File</h1>
-    <form method=post enctype=multipart/form-data>
-      <p><input type=file name=file>
-         <input type=submit value=Upload>
-    </form>
-    '''
-
-@app.route('/uploads/<filename>')
-def uploaded_file(filename):
-    return send_from_directory(app.config['MEME_TEMPLATES'],
-                               filename)
 
 if __name__ == "__main__":
     app.run(debug=True)

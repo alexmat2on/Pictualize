@@ -1,30 +1,36 @@
 Create Database Pictualize;
 use Pictualize;
+
+CREATE TABLE ImageTypes (
+	img_type VARCHAR(5) PRIMARY KEY
+);
+
+INSERT INTO ImageTypes VALUES ('MACRO'), ('TEMPL'), ('GIF'), ('AVATR');
+
 CREATE TABLE Images (
-	imageID INT PRIMARY KEY, /* not sure if this should be an int id or a varchar contiang path to image... */
-	img_size INT,
-	img_type VARCHAR(5),	/* options would be 'MACRO', 'IMAGE', 'GIF', or 'AVATR' */
-	text_top VARCHAR(15),	/* top text should be limited to 15 chars */
-	text_bot VARCHAR(15)	/* bot text should be limited to 15 chars */
+	imageID VARCHAR(40) PRIMARY KEY, /* not sure if this should be an int id or a varchar contiang path to image... */
+	img_type VARCHAR(5),	/* options would be 'MACRO', 'TEMPL', 'GIF', or 'AVATR' */
+	FOREIGN KEY (img_type) REFERENCES ImageTypes(img_type)
 );
 
 CREATE TABLE ImageTags (
-	imageID INT,
+	imageID VARCHAR(40),
 	tag VARCHAR(10),
- 	FOREIGN KEY (imageID) REFERENCES Images(imageId)
+ 	FOREIGN KEY (imageID) REFERENCES Images(imageID)
 );
 
 CREATE TABLE Users (
 	userID VARCHAR(25) PRIMARY KEY, /* usernames max 25 chars */
-	first_name VARCHAR(25),
-	last_name VARCHAR(25),
-	email VARCHAR(20)	/* email should also be unique */
+	first_name VARCHAR(30),
+	last_name VARCHAR(30),
+	email VARCHAR(255)	/* email should also be unique */
 );
 
 CREATE TABLE Profiles (
 	userID VARCHAR(25),
-	avatarID VARCHAR(255),
-	FOREIGN KEY (userID) REFERENCES Users(userID)
+	avatarID VARCHAR(40),
+	FOREIGN KEY (userID) REFERENCES Users(userID),
+	FOREIGN KEY (avatarID) REFERENCES Images(imageID)
 );
 
 CREATE TABLE Follows (
@@ -36,27 +42,29 @@ CREATE TABLE Follows (
 
 CREATE TABLE SavedImages (
 	userID VARCHAR(25),
+	saved_imageID VARCHAR(40),
 	FOREIGN KEY (userID )REFERENCES Users(userID),
-	saved_imageID INT,
 	FOREIGN KEY (saved_imageID) REFERENCES Images(imageID)
 );
 
 
 CREATE TABLE Posts (
-	postID INT PRIMARY KEY,
+	postID INT PRIMARY KEY AUTO_INCREMENT,
 	userID VARCHAR(25),
+	post_image VARCHAR(40),
+	template_image VARCHAR(40),
+	post_ts DATETIME NOT NULL,
+	text_top VARCHAR(20),	/* top text should be limited to 20 chars */
+	text_bot VARCHAR(20),	/* bot text should be limited to 20 chars */
 	FOREIGN KEY (userID) REFERENCES Users(userID),
-	post_imageID INT,
-	FOREIGN KEY (post_imageID)REFERENCES Images(imageID),
-	post_ts DATETIME not null
+	FOREIGN KEY (post_image) REFERENCES Images(imageID),
+	FOREIGN KEY (template_image) REFERENCES Images(imageID)
 );
 
 CREATE TABLE Replies (
-	postID INT,
-	FOREIGN KEY (postID) REFERENCES Posts(postID),
-	posterID VARCHAR(25),
-	FOREIGN KEY (posterID) REFERENCES Users(userID),
-	reply_imageID INT,
-	FOREIGN KEY (reply_imageID) REFERENCES Images(imageID),
-	reply_ts DATETIME
+	replyID INT PRIMARY KEY AUTO_INCREMENT,
+	parent_post INT,
+	reply_post INT,
+	FOREIGN KEY (parent_post) REFERENCES Posts(postID),
+	FOREIGN KEY (reply_post) REFERENCES Posts(postID)
 );

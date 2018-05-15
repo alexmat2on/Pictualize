@@ -9,37 +9,18 @@
 </head>
 <body>
   <div class="page">
-  <header>
-      <div id="logo">
-        <!---PLACE THE LOGO PICTUALIZE--->
-        <a href="/"><img src="{{ url_for('static', filename='img_assets/pic1.png') }}"></a>
-      </div>
-      <div class="navigation">
-        <ul>
-          <li><input type="text" name="search" placeholder="Search..."></li>
-          <li><a href="/new">New Meme</a></li>
-          <li><a href="/following">Following</a></li>
-          <li><a href="/profile">Profile</a></li>
-          <li><a href="/godview">God View</a></li>
-        </ul>
-      </div>
+  {% include "header.html" %}
 
-      <div class="logout">
-        <form action="/logout" method="GET">
-          <label for="buttonLugout">{{ session['username'] }}</label>
-          <input id="buttonLogout" type="submit" value="Logout">
-        </form>
-      </div>
-  </header>
-  <h1>Global Feed</h1>
+  <h1>🌎 Global Feed</h1>
   <div class="content">
   {% for pic in picLinks %}
   <div class="post">
     <span class="original_poster">poster's_username</span>
     <img src={{ pic }} >
     <ul>
+      <li>View post</li>
       <li>Save post</li>
-      <li>Make new post with template</li>
+      <li>Fork post</li>
       <li>Reply</li>
     </ul>
   </div>

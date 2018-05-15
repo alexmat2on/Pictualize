@@ -1,25 +1,27 @@
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `createUser`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `createUser` (
   IN firstname VARCHAR(20),
   IN lastname VARCHAR(20),
   IN e_mail VARCHAR(20),
   IN user_id varchar(25)
 )
-BEGIN
-if ( select exists (select 1 from Users where userID = user_id) ) THEN
 
-select 'Username Exists !!';
+BEGIN
+IF ( SELECT EXISTS (SELECT 1 from Users where userID = user_id) ) THEN
+
+SELECT 'Username Exists';
 
 ELSE
 
-insert into Users
+INSERT INTO Users
   (
     first_name,
     last_name,
     email,
     userID
   )
-  values
+
+  VALUES
   (
     firstname,
     lastname,
@@ -27,6 +29,6 @@ insert into Users
     user_id
   );
 
-  END IF;
-  END$$
-  DELIMITER ;
+END IF;
+END$$
+DELIMITER ;
