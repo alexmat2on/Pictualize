@@ -14,20 +14,26 @@
       <h1>New Post</h1>
       <div class="editor">
         <div class="carousel">
-          <div class="prev-base">
+          {% for t in templates %}
+            <div class="thumb">
+              <img src="/templates/{{ t }}">
+            </div>
+          {% endfor %}
+          <!-- <div class="prev-base">
             <img src="/uploads/Ancient-Aliens.jpg">
-          </div>
-
-          <div class="current-base">
-            <h2 id="top_text" class="memetext"></h2>
-            <h2 id="bot_text" class="memetext"></h2>
-            <img src="/uploads/Captain-Picard-Facepalm.jpg">
           </div>
 
           <div class="next-base">
             <img src="/uploads/Creepy-Condescending-Wonka.jpg">
-          </div>
+          </div> -->
         </div>
+
+        <div class="current-base">
+          <h2 id="top_text" class="memetext"></h2>
+          <h2 id="bot_text" class="memetext"></h2>
+          <img src="/templates/1be994360b7ea1896357f59e36ac3f8e.jpg">
+        </div>
+
         <div class="tools">
           <form action="/makePost" method="post">
           <input id="top_edit" type="text" placeholder="Top Text"></input><br>
@@ -60,6 +66,12 @@
       var bot = $(this).val();
       $("#bot_text").html(bot);
     });
+
+    $(".thumb").click(function() {
+      thumbsrc = this.children[0].src;
+      // alert(this.children[0].src);
+      $(".current-base img").attr('src',thumbsrc);
+    })
   });
   </script>
 </body>

@@ -85,7 +85,14 @@ def logout():
 @app.route("/new")
 def new():
     if 'username' in session:
-        return render_template('create.html')
+        cursor.execute("SELECT imageID FROM Images WHERE img_type='TEMPL'")
+        data = cursor.fetchall()
+        templates = []
+        for row in data:
+            print(row)
+            templates.append(row[0])
+
+        return render_template('create.html', templates = templates)
     else:
         return redirect("/")
 
@@ -163,7 +170,7 @@ def upload():
                     filename = hashlib.md5(stringToHash.encode('utf-8')).hexdigest() + fileExtension
                     file.save(os.path.join(app.config['MEME_TEMPLATES'], filename))
 
-                    cursor.callproc('uploadImage', (filename, 'TEMPL'))
+                    cursor.callproc('uploadImage', (filename, 'TEMPL', session['username']))
                     conn.commit()
 
             return redirect(url_for('uploaded_template',
