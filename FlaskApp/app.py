@@ -1,7 +1,7 @@
 import os
 import hashlib
 from random import randint
-from flask import escape, Flask, json, redirect, render_template, request, send_from_directory, session, url_for
+from flask import escape, Flask, json, redirect, render_template, request, send_from_directory, session, url_for, flash
 from flask.ext.mysql import MySQL
 from werkzeug.utils import secure_filename
 
@@ -145,22 +145,29 @@ def upload():
             if 'file' not in request.files:
                 flash('No file part')
                 return redirect(request.url)
-            file = request.files['file']
-            # if user does not select file, browser also
-            # submit a empty part without filename
-            if file.filename == '':
-                flash('No selected file')
-                return redirect(request.url)
-            if file and allowed_file(file.filename):
-                # filename = secure_filename(file.filename)
-                stringToHash = file.filename + session['username'] + str(randint(0, 10000))
-                fileExtension = "." + file.filename.rsplit('.', 1)[1].lower()
+            # file = request.files['file']
+            filelist = request.files.getlist("file")
+            print(len(filelist))
+            print(filelist)
+            for file in filelist:
+                # if user does not select file, browser also
+                # submit a empty part without filename
+                if file.filename == '':
+                    flash('No selected file')
+                    return redirect(request.url)
+                if file and allowed_file(file.filename):
+                    # filename = secure_filename(file.filename)
+                    stringToHash = file.filename + session['username'] + str(randint(0, 10000))
+                    fileExtension = "." + file.filename.rsplit('.', 1)[1].lower()
 
-                filename = hashlib.md5(stringToHash.encode('utf-8')).hexdigest() + fileExtension
-                file.save(os.path.join(app.config['MEME_TEMPLATES'], filename))
-                
-                return redirect(url_for('uploaded_template',
-                                        filename=filename))
+                    filename = hashlib.md5(stringToHash.encode('utf-8')).hexdigest() + fileExtension
+                    file.save(os.path.join(app.config['MEME_TEMPLATES'], filename))
+
+                    cursor.callproc('uploadImage', (filename, 'TEMPL'))
+                    conn.commit()
+
+            return redirect(url_for('uploaded_template',
+                                 filename=filename))
 
         return render_template('upload.html')
     else:

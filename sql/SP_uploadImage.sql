@@ -1,34 +1,21 @@
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `createUser` (
-  IN firstname VARCHAR(20),
-  IN lastname VARCHAR(20),
-  IN e_mail VARCHAR(20),
-  IN user_id varchar(25)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `uploadImage` (
+  IN arg_imageID VARCHAR(40),
+  IN arg_img_type VARCHAR(5)
 )
 
 BEGIN
-IF ( SELECT EXISTS (SELECT 1 from Users where userID = user_id) ) THEN
-
-SELECT 'Username Exists';
-
-ELSE
-
-INSERT INTO Users
+INSERT INTO Images
   (
-    first_name,
-    last_name,
-    email,
-    userID
+    imageID,
+    img_type
   )
 
   VALUES
   (
-    firstname,
-    lastname,
-    e_mail,
-    user_id
+    arg_imageID,
+    arg_img_type
   );
 
-END IF;
 END$$
 DELIMITER ;
