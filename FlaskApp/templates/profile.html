@@ -17,6 +17,10 @@
       <li><a href="/profile/saved">Saved Posts</a></li>
       <li><a href="/profile/library">Template Library</a></li>
     </ul>
+      {% else %}
+      <ul>
+        <li><a href="/follow/{{userID}}">Follow This User</a></li>
+      </ul>
     {% endif %}
     </div>
     <div class="content">

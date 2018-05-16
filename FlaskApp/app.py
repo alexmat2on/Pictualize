@@ -174,8 +174,6 @@ def uploadAvatar(userID):
         if session['username'] == userID:
             print("WE MADE IT THIS FAR")
             if request.method == "POST":
-                print('hi paul')
-                print(request.files['avatar'])
                 file = request.files['avatar']
                 if file and allowed_file(file.filename):
                     stringToHash = session['username']
@@ -184,7 +182,7 @@ def uploadAvatar(userID):
                     filename = hashlib.md5(stringToHash.encode('utf-8')).hexdigest() + fileExtension
 
                     file.save(os.path.join(app.config['USER_ASSETS'], filename))
-                    cursor.execute("SELECT * FROM Profiles JOIN Images WHERE Profiles.avatarID=Images.imageID")
+                    cursor.execute("SELECT * FROM Profiles JOIN Images ON Profiles.avatarID=Images.imageID WHERE Profiles.userID='" + userID + "'")
 
                     data = cursor.fetchall()
                     print("UPLOADED!! ", data)
