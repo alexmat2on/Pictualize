@@ -36,8 +36,9 @@
 
         <div class="tools">
           <form action="/makePost" method="post">
-          <input id="top_edit" type="text" placeholder="Top Text"></input><br>
-          <input id="bot_edit" type="text" placeholder="Bottom Text"></input><br><br>
+          <input id="top_edit" name="top_text" type="text" placeholder="Top Text"></input><br>
+          <input id="bot_edit" name="bot_text" type="text" placeholder="Bottom Text"></input><br><br>
+          <input id="img_edit" style="display:none;" name="image_id" type="text" value="1be994360b7ea1896357f59e36ac3f8e.jpg"></input>
           <input type="submit" value="Create">
         </form>
         </div>
@@ -69,8 +70,10 @@
 
     $(".thumb").click(function() {
       thumbsrc = this.children[0].src;
+      imageid = thumbsrc.substr(-36);
       // alert(this.children[0].src);
       $(".current-base img").attr('src',thumbsrc);
+      $("#img_edit").val(imageid);
     })
   });
   </script>

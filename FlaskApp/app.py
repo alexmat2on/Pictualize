@@ -1,5 +1,11 @@
 import os
 import hashlib
+from PIL import Image
+from PIL import ImageFont
+from PIL import ImageDraw
+
+from math import ceil
+
 from random import randint
 from flask import escape, Flask, json, redirect, render_template, request, send_from_directory, session, url_for, flash
 from flask.ext.mysql import MySQL
@@ -89,7 +95,6 @@ def new():
         data = cursor.fetchall()
         templates = []
         for row in data:
-            print(row)
             templates.append(row[0])
 
         return render_template('create.html', templates = templates)
@@ -99,8 +104,34 @@ def new():
 @app.route("/makePost", methods=['POST'])
 def makePost():
     if 'username' in session:
+        # Fetch values from request
+        topString = request.form['top_text']
+        botString = request.form['bot_text']
+        imageID = request.form['image_id']
+
+        # Build an ID/filename for the post-processed image
+        postImageID = session['username'] + topString + botString + imageID
+        postExtension = imageID[-4:]
+        postFilename = hashlib.md5(postImageID.encode('utf-8')).hexdigest() + postExtension
+
+        # Draw the text onto the image
+        print(imageID)
+        print("static/img_base/" + imageID)
+        openTemplate = Image.open("static/img_base/" + imageID)
+        drawTemplate = ImageDraw.Draw(openTemplate)
+
+        drawText(openTemplate, drawTemplate, topString, "TOP")
+        drawText(openTemplate, drawTemplate, botString, "BOT")
+
+        openTemplate.save('static/img_user_gen/' + postFilename)
+
+        # Store the results as a post in the database
         query = "SELECT"
-        cursor.execute(query)
+        cursor.callproc('uploadImage', (postFilename, 'MACRO', session['username']))
+        cursor.callproc('makePost', (session['username'], postFilename, imageID, topString, botString))
+        conn.commit()
+
+        return redirect("/")
 
 @app.route("/following")
 def following():
@@ -187,10 +218,44 @@ def uploaded_template(filename):
 
 ## END APP ROUTES --------------------------------------------------------------
 
-# AUX FUNCTIONS ----------------------------------------------------------------
+# AUXILLIARY FUNCTIONS ---------------------------------------------------------
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+def drawText(img, draw, textstr, position):
+    # Make font size 7% of the image width
+    font = ImageFont.truetype("static/impact.ttf", ceil(img.size[0] * 0.07))
+
+    text_x = font.getsize(textstr)[0]
+    text_y = font.getsize(textstr)[1]
+    x = (img.size[0] - text_x) / 2
+
+    if position == "TOP":
+        y = 5
+    elif position == "BOT":
+        y = img.size[1] - text_y - 10
+
+    if text_x >= img.size[0]:
+        sp = textstr.split()
+        words = len(sp)
+        topline = ""
+        nextline = ""
+        for i in range(0, words // 2):
+            topline += sp[i] + " "
+
+        for i in range(words // 2, words):
+            nextline += sp[i] + " "
+
+        nextx = (img.size[0] - font.getsize(nextline)[0]) / 2
+        draw.text((nextx + 2, y + text_y + 8), nextline, (0, 0, 0), font=font)
+        draw.text((nextx, y + text_y + 5), nextline, (255, 255, 255), font=font)
+
+        textstr = topline
+        x = (img.size[0] - font.getsize(textstr)[0]) / 2
+
+    draw.text((x + 2, y + 2), textstr, (0, 0, 0), font=font)
+    draw.text((x, y), textstr, (255, 255, 255), font=font)
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -19,6 +19,7 @@ The `sql` folder in this repo contains all the SQL code. It contains the definit
 - [ ] PROFILE PAGE: create an HTML file for the profile page. Has avatar picture, with a sidebar. Sidebar has: "Following You", "Saved Posts", "Template Library". Each opens the respective item in content area.
 - [ ] FOLLOWING PAGE: display a feed of just the posts created by the people you are following. Sidebar has list of usernames of people you're following.
 - [ ] NEW POST: Clicking `create` should make a new post by storing it in the database, and bring you to homepage. Use a S.P. to insert the post data. It should also use Python to generate an image with the text embedded and store it under `img_user_gen` in the static folder.
+- [ ] REGISTRATION: Add a trigger to save default templates in a new user's library.
 
 ## Run
 * Install flask with `pip install flask`
