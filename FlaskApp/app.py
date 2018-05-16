@@ -41,7 +41,7 @@ def main():
     # Check if a user is logged in and show the respective page
     if 'username' in session:
         # Get the 50 most recent posts
-        cursor.execute("SELECT userID, post_image FROM Posts ORDER BY post_ts DESC LIMIT 50")
+        cursor.execute("SELECT userID, post_image FROM Posts ORDER BY post_ts DESC LIMIT 30")
         data = cursor.fetchall()
         posts = []
 

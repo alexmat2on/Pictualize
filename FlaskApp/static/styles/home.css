@@ -47,6 +47,6 @@ h1 {
 .post img {
   height: 90%;
   max-height: 250px;
-  object-fit: scale-down;
+  object-fit: cover;
   background-color: #ddd;
 }
