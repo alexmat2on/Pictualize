@@ -18,10 +18,10 @@ mysql = MySQL()
 app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT';
 
 # File upload directory
-UPLOAD_FOLDER = "static/img_user_gen";
+USER_FOLDER = "static/img_user_gen";
 MEME_TEMPLATES = "static/img_base";
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['USER_FOLDER'] = USER_FOLDER
 app.config['MEME_TEMPLATES'] = MEME_TEMPLATES
 
 # MySQL configurations
@@ -40,10 +40,15 @@ cursor = conn.cursor()
 def main():
     # Check if a user is logged in and show the respective page
     if 'username' in session:
-        links = []
-        for filename in os.listdir("static/img_base/"):
-            links.append('/static/img_base/' + filename)
-        return render_template('home.html', picLinks = links)
+        # Get the 50 most recent posts
+        cursor.execute("SELECT userID, post_image FROM Posts ORDER BY post_ts DESC LIMIT 50")
+        data = cursor.fetchall()
+        posts = []
+
+        for row in data:
+            posts.append(row)
+
+        return render_template('home.html', recentPosts = posts)
     else:
         return render_template('registration.html')
 
@@ -216,6 +221,9 @@ def uploaded_template(filename):
     return send_from_directory(app.config['MEME_TEMPLATES'],
                                filename)
 
+@app.route('/meme/<filename>')
+def uploaded_memes(filename):
+    return send_from_directory(app.config['USER_FOLDER'], filename)
 ## END APP ROUTES --------------------------------------------------------------
 
 # AUXILLIARY FUNCTIONS ---------------------------------------------------------

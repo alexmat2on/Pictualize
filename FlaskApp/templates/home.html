@@ -13,10 +13,10 @@
 
   <h1>🌎 Global Feed</h1>
   <div class="content">
-  {% for pic in picLinks %}
+  {% for post in recentPosts %}
   <div class="post">
-    <span class="original_poster">poster's_username</span>
-    <img src={{ pic }} >
+    <span class="original_poster">{{ post[0] }}</span>
+    <img src="/meme/{{ post[1] }}">
     <ul>
       <li>View post</li>
       <li>Save post</li>
