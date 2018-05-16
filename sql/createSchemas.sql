@@ -54,8 +54,8 @@ CREATE TABLE Posts (
 	post_image VARCHAR(40),
 	template_image VARCHAR(40),
 	post_ts DATETIME NOT NULL,
-	text_top VARCHAR(20),	/* top text should be limited to 20 chars */
-	text_bot VARCHAR(20),	/* bot text should be limited to 20 chars */
+	text_top VARCHAR(50),	/* top text should be limited to 20 chars */
+	text_bot VARCHAR(50),	/* bot text should be limited to 20 chars */
 	FOREIGN KEY (userID) REFERENCES Users(userID),
 	FOREIGN KEY (post_image) REFERENCES Images(imageID),
 	FOREIGN KEY (template_image) REFERENCES Images(imageID)

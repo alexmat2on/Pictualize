@@ -47,16 +47,18 @@ label {
 }
 
 table {
-  width: 80%;
+  width: 100%;
   padding: 0;
   margin: 0;
   border-spacing: 5px;
+  table-layout: fixed;
 }
 
-table td {
+td {
   padding: 15px;
   margin: 0;
   border: 1px dotted #444;
+  word-wrap: break-word;
 }
 
 th {
@@ -68,6 +70,13 @@ th {
 
 tr:nth-child(even) {
     background-color: #eee;
+}
+
+.avatar {
+  height: 100px;
+  width: 100px;
+  object-fit: cover;
+border-radius: 100%;
 }
 
 footer {

@@ -15,14 +15,16 @@ app = Flask(__name__)
 mysql = MySQL()
 
 # Secret key to encrypt session cookies
-app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT';
+app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 
 # File upload directory
-USER_FOLDER = "static/img_user_gen";
-MEME_TEMPLATES = "static/img_base";
+USER_FOLDER = "static/img_user_gen"
+MEME_TEMPLATES = "static/img_base"
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 app.config['USER_FOLDER'] = USER_FOLDER
 app.config['MEME_TEMPLATES'] = MEME_TEMPLATES
+app.config['USER_ASSETS'] = "static/img_user_assets"
+app.config['APP_ASSETS'] = "static/img_assets"
 
 # MySQL configurations
 app.config['MYSQL_DATABASE_USER'] = 'root'
@@ -41,7 +43,7 @@ def main():
     # Check if a user is logged in and show the respective page
     if 'username' in session:
         # Get the 50 most recent posts
-        cursor.execute("SELECT userID, post_image FROM Posts ORDER BY post_ts DESC LIMIT 30")
+        cursor.execute("SELECT postID, userID, post_image FROM Posts ORDER BY post_ts DESC LIMIT 30")
         data = cursor.fetchall()
         posts = []
 
@@ -131,8 +133,7 @@ def makePost():
         openTemplate.save('static/img_user_gen/' + postFilename)
 
         # Store the results as a post in the database
-        query = "SELECT"
-        cursor.callproc('uploadImage', (postFilename, 'MACRO', session['username']))
+        cursor.callproc('uploadImage', (postFilename, 'MACRO'))
         cursor.callproc('makePost', (session['username'], postFilename, imageID, topString, botString))
         conn.commit()
 
@@ -145,10 +146,56 @@ def following():
     else:
         return redirect("/")
 
-@app.route("/profile")
-def profile():
+@app.route("/profile/<userID>")
+def profile(userID):
     if 'username' in session:
-        return render_template("profile.html")
+        return render_template("profile.html", userID = userID)
+    else:
+        return redirect("/")
+
+@app.route("/profile/<userID>/avatar")
+def getAvatar(userID):
+    if 'username' in session:
+        cursor.execute("SELECT avatarID FROM Profiles WHERE userID='" + userID + "'")
+        data = cursor.fetchall()
+        if (len(data) != 0):
+            avatar = data[0][0]
+        else:
+            # If user has not set avatar, use default
+            return send_from_directory(app.config["APP_ASSETS"], "avatar.png")
+
+        return send_from_directory(app.config["USER_ASSETS"], avatar)
+    else:
+        return redirect("/")
+
+@app.route("/profile/<userID>/upload_avatar", methods=['POST'])
+def uploadAvatar(userID):
+    if 'username' in session:
+        if session['username'] == userID:
+            print("WE MADE IT THIS FAR")
+            if request.method == "POST":
+                print('hi paul')
+                print(request.files['avatar'])
+                file = request.files['avatar']
+                if file and allowed_file(file.filename):
+                    stringToHash = session['username']
+                    fileExtension = "." + file.filename.rsplit('.', 1)[1].lower()
+
+                    filename = hashlib.md5(stringToHash.encode('utf-8')).hexdigest() + fileExtension
+
+                    file.save(os.path.join(app.config['USER_ASSETS'], filename))
+                    cursor.execute("SELECT * FROM Profiles JOIN Images WHERE Profiles.avatarID=Images.imageID")
+
+                    data = cursor.fetchall()
+                    print("UPLOADED!! ", data)
+                    if (len(data) == 0):
+                        cursor.callproc('uploadImage', (filename, 'AVATR'))
+                        cursor.callproc('setAvatar', (filename, userID))
+                        conn.commit()
+
+            return redirect("/profile/" + userID)
+        else:
+            return "Hacker, no hacking!"
     else:
         return redirect("/")
 
@@ -190,8 +237,6 @@ def upload():
                 return redirect(request.url)
             # file = request.files['file']
             filelist = request.files.getlist("file")
-            print(len(filelist))
-            print(filelist)
             for file in filelist:
                 # if user does not select file, browser also
                 # submit a empty part without filename
@@ -206,7 +251,8 @@ def upload():
                     filename = hashlib.md5(stringToHash.encode('utf-8')).hexdigest() + fileExtension
                     file.save(os.path.join(app.config['MEME_TEMPLATES'], filename))
 
-                    cursor.callproc('uploadImage', (filename, 'TEMPL', session['username']))
+                    cursor.callproc('uploadImage', (filename, 'TEMPL'))
+                    cursor.callproc('saveImage', (filename, session['username']))
                     conn.commit()
 
             return redirect(url_for('uploaded_template',

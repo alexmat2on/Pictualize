@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pictualize</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didact+Gothic">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/styles.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/profile.css') }}">
+</head>
+<body>
+  <div class="page">
+    {% include "header.html" %}
+    <div class="sidebar">
+      {% if session['username'] == userID %}
+      <ul>
+      <li><a href="/profile/followers">Following You</a></li>
+      <li><a href="/profile/saved">Saved Posts</a></li>
+      <li><a href="/profile/library">Template Library</a></li>
+    </ul>
+    {% endif %}
+    </div>
+    <div class="content">
+      <h1>{{ userID }}</h1>
+      <img class="avatar" src="/profile/{{ userID }}/avatar">
+      {%if session['username'] == userID %}
+      <form action="{{ url_for('uploadAvatar', userID=session['username']) }}" method="post" enctype="multipart/form-data">
+      <input type=file name=avatar value="Upload">
+      <input type=submit value=Upload>
+    </form>
+      {% endif %}
+    </div>
+
+    <footer>
+      <p>&copy; 2018 Pictualize</p>
+    </footer>
+  </div>
+</body>
+</html>
