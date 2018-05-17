@@ -24,14 +24,14 @@
         <div class="current-base">
           <h2 id="top_text" class="memetext"></h2>
           <h2 id="bot_text" class="memetext"></h2>
-          <img src="/templates/1be994360b7ea1896357f59e36ac3f8e.jpg">
+          <img src="/templates/{{ selected_image }}">
         </div>
 
         <div class="tools">
           <form action="/makePost" method="post">
           <input id="top_edit" name="top_text" type="text" placeholder="Top Text"></input><br>
           <input id="bot_edit" name="bot_text" type="text" placeholder="Bottom Text"></input><br><br>
-          <input id="img_edit" style="display:none;" name="image_id" type="text" value="1be994360b7ea1896357f59e36ac3f8e.jpg"></input>
+          <input id="img_edit" style="display:none;" name="image_id" type="text"></input>
           <input type="submit" value="Create">
         </form>
         </div>
@@ -46,6 +46,10 @@
   <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
   <script>
   $(document).ready(function() {
+    // Set the text inputs to jinja vars
+    $("#top_edit").val("{{ topTxt }}")
+    $("#bot_edit").val("{{ botTxt }}")
+    $("#img_edit").val("{{ selected_image }}")
     // Set the top and bottom text on the meme to the pre-existing values in the input boxes.
     $("#top_text").html($("#top_edit").val());
     $("#bot_text").html($("#bot_edit").val());

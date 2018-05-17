@@ -54,6 +54,45 @@ def main():
     else:
         return render_template('registration.html')
 
+@app.route("/save/<postID>")
+def savePost(postID):
+    if 'username' in session:
+        cursor.execute("SELECT post_image FROM Posts WHERE postID='" + postID + "'")
+        postimg = cursor.fetchone()[0]
+        cursor.execute("INSERT INTO SavedImages VALUES('" + session['username'] + "', '" + postimg + "')")
+        conn.commit()
+        return redirect("/profile/saved")
+    else:
+        return redirect("/")
+
+@app.route("/fork/<postID>")
+def forkPost(postID):
+    if 'username' in session:
+        cursor.execute("SELECT template_image, text_top, text_bot FROM Posts WHERE postID='" + postID + "'")
+        data = cursor.fetchone()
+        print(data)
+        ti = data[0]
+        tt = data[1]
+        tb = data[2]
+
+        cursor.execute("SELECT imageID FROM SavedImages JOIN Images ON SavedImages.saved_imageID=Images.imageID WHERE img_type='TEMPL' AND userID='" + session['username'] + "'")
+        data = cursor.fetchall()
+        templates = []
+        for row in data:
+            templates.append(row[0])
+
+        return render_template('create.html', templates = templates, selected_image = ti, topTxt = tt, botTxt = tb)
+    else:
+        return redirect("/")
+
+@app.route("/reply/<postID>")
+def replyPost(postID):
+    if 'username' in session:
+        return redirect("/profile/saved")
+    else:
+        return redirect("/")
+
+
 @app.route("/signup", methods=['POST'])
 def signup():
     # Store data from the form fields
@@ -104,7 +143,7 @@ def new():
         for row in data:
             templates.append(row[0])
 
-        return render_template('create.html', templates = templates)
+        return render_template('create.html', templates = templates, selected_image = templates[0])
     else:
         return redirect("/")
 
@@ -132,6 +171,7 @@ def makePost():
 
         openTemplate.save('static/img_user_gen/' + postFilename)
 
+        print("MAKE TESTING: ", postFilename, imageID, topString, botString)
         # Store the results as a post in the database
         cursor.callproc('uploadImage', (postFilename, 'MACRO'))
         cursor.callproc('makePost', (session['username'], postFilename, imageID, topString, botString))
