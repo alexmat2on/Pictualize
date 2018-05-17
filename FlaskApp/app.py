@@ -42,7 +42,7 @@ cursor = conn.cursor()
 def main():
     # Check if a user is logged in and show the respective page
     if 'username' in session:
-        # Get the 50 most recent posts
+        # Get the 30 most recent posts
         cursor.execute("SELECT postID, userID, post_image FROM Posts ORDER BY post_ts DESC LIMIT 30")
         data = cursor.fetchall()
         posts = []
@@ -142,7 +142,54 @@ def makePost():
 @app.route("/following")
 def following():
     if 'username' in session:
-        return render_template('following.html')
+        cursor.execute("SELECT followed_userID FROM Follows WHERE userID='" + session['username'] + "'")
+        data = cursor.fetchall()
+        following = []
+
+        for row in data:
+            following.append(row[0])
+
+        return render_template('following.html', followingList = following)
+    else:
+        return redirect("/")
+
+@app.route("/follow/<userID>")
+def follow(userID):
+    if 'username' in session:
+        cursor.execute("SELECT * FROM Users WHERE userID='" + userID + "'")
+        data = cursor.fetchall()
+        if (len(data) == 0):
+            return "user does not exist"
+        else:
+            cursor.execute("INSERT INTO Follows VALUES ('" + session['username'] + "', '" + userID + "')")
+            conn.commit()
+            return redirect("/following")
+
+@app.route("/profile/followers")
+def prof_followers():
+    if 'username' in session:
+        cursor.execute("SELECT * FROM Follows WHERE followed_userID='" + session['username'] + "'")
+        data = cursor.fetchall()
+
+        followers = []
+        for row in data:
+            followers.append(row[0])
+
+        return render_template("profile_followers.html", followerList=followers)
+    else:
+        return redirect("/")
+
+@app.route("/profile/saved")
+def prof_saved():
+    if 'username' in session:
+        return render_template("profile.html")
+    else:
+        return redirect("/")
+
+@app.route("/profile/library")
+def prof_library():
+    if 'username' in session:
+        return render_template("profile.html")
     else:
         return redirect("/")
 
@@ -233,7 +280,6 @@ def upload():
             if 'file' not in request.files:
                 flash('No file part')
                 return redirect(request.url)
-            # file = request.files['file']
             filelist = request.files.getlist("file")
             for file in filelist:
                 # if user does not select file, browser also
@@ -253,8 +299,7 @@ def upload():
                     cursor.callproc('saveImage', (filename, session['username']))
                     conn.commit()
 
-            return redirect(url_for('uploaded_template',
-                                 filename=filename))
+            return redirect("/new")
 
         return render_template('upload.html')
     else:
