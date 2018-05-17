@@ -18,11 +18,9 @@ mysql = MySQL()
 app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 
 # File upload directory
-USER_FOLDER = "static/img_user_gen"
-MEME_TEMPLATES = "static/img_base"
-ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
-app.config['USER_FOLDER'] = USER_FOLDER
-app.config['MEME_TEMPLATES'] = MEME_TEMPLATES
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'gif'])
+app.config['USER_FOLDER'] = "static/img_user_gen"
+app.config['MEME_TEMPLATES'] = "static/img_base"
 app.config['USER_ASSETS'] = "static/img_user_assets"
 app.config['APP_ASSETS'] = "static/img_assets"
 

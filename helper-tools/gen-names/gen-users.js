@@ -22,7 +22,7 @@ for (var x = 0; x < 50; x++) {
 	insertUserSQL += "'" + un + "',";
 	insertUserSQL += "'" + fn + "',";
 	insertUserSQL += "'" + ln + "',";
-	insertUserSQL += "'" + "'";
+	insertUserSQL += "'" + em + "'";
 	insertUserSQL += ")";
 
 	connection.query(insertUserSQL, function (err, result) {

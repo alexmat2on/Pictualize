@@ -17,7 +17,8 @@ for (var x = 0; x < 25; x++) {
 
 	console.log(image);
   console.log(top);
-  fs.writeFile("topMeme.txt", top, function (err) {
+	fs.open("topMeme.txt")
+  fs.writeFile("topMeme.txt", top + "\n", function (err) {
     if (err) throw err;
   })
 	// Insert user data into Users table
