@@ -21,6 +21,14 @@
       {% for follower in followerList %}
       <h4><a href="/profile/{{ follower }}">{{ follower }}</a></h4>
       {% endfor %}
+
+      {% for saved in savedPostsList %}
+      <img style="width: 200px; height: 200px; object-fit: cover;" src="{{ url_for('uploaded_memes', filename=saved) }}">
+      {% endfor %}
+
+      {% for temp in tempLibList %}
+      <img style="width: 200px; height: 200px; object-fit: cover;" src="{{ url_for('uploaded_templates', filename=temp) }}">
+      {% endfor %}
     </div>
 
     <footer>

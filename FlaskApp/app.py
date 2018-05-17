@@ -175,21 +175,35 @@ def prof_followers():
         for row in data:
             followers.append(row[0])
 
-        return render_template("profile_followers.html", followerList=followers)
+        return render_template("profile_user.html", followerList=followers)
     else:
         return redirect("/")
 
 @app.route("/profile/saved")
 def prof_saved():
     if 'username' in session:
-        return render_template("profile.html")
+        cursor.execute("SELECT imageID FROM SavedImages JOIN Images ON SavedImages.saved_imageID=Images.imageID WHERE userID='" + session['username'] + "' AND img_type='MACRO'")
+        data = cursor.fetchall()
+
+        savedPosts = []
+        for row in data:
+            savedPosts.append(row[0])
+
+        return render_template("profile_user.html", savedPostsList=savedPosts)
     else:
         return redirect("/")
 
 @app.route("/profile/library")
 def prof_library():
     if 'username' in session:
-        return render_template("profile.html")
+        cursor.execute("SELECT imageID FROM SavedImages JOIN Images ON SavedImages.saved_imageID=Images.imageID WHERE userID='" + session['username'] + "' AND img_type='TEMPL'")
+        data = cursor.fetchall()
+
+        tempLib = []
+        for row in data:
+            tempLib.append(row[0])
+
+        return render_template("profile_user.html", tempLibList=tempLib)
     else:
         return redirect("/")
 
@@ -246,16 +260,19 @@ def uploadAvatar(userID):
 
 @app.route("/godview")
 def godview():
-    cursor.execute("SHOW TABLES")
-    showTables = cursor.fetchall()
+    if session['username'] == 'god':
+        cursor.execute("SHOW TABLES")
+        showTables = cursor.fetchall()
 
-    description = "GodView is a nifty developer's web tool to dump and inspect the state of all the tables in the database. With great power comes great responsibility, young padawan."
+        description = "GodView is a nifty developer's web tool to dump and inspect the state of all the tables in the database. With great power comes great responsibility, young padawan."
 
-    return render_template("godview.html", showTables = showTables, description = description)
+        return render_template("godview.html", showTables = showTables, description = description)
+    else:
+        return "Blasphemy! Begone ye false idol!"
 
 @app.route("/godview/<tableName>")
 def godviewTable(tableName):
-    if 'username' in session:
+    if session['username'] == 'god':
         cursor.execute("SHOW TABLES")
         showTables = cursor.fetchall()
 
@@ -270,7 +287,7 @@ def godviewTable(tableName):
                                 tableMeta = tableMeta, \
                                 tableName = tableName)
     else:
-        return redirect("/")
+        return "Blasphemy! Begone ye false idol!"
 
 @app.route("/upload", methods=['GET', 'POST'])
 def upload():
@@ -306,7 +323,7 @@ def upload():
         return redirect("/")
 
 @app.route('/templates/<filename>')
-def uploaded_template(filename):
+def uploaded_templates(filename):
     return send_from_directory(app.config['MEME_TEMPLATES'],
                                filename)
 
