@@ -98,7 +98,7 @@ def logout():
 @app.route("/new")
 def new():
     if 'username' in session:
-        cursor.execute("SELECT imageID FROM Images WHERE img_type='TEMPL'")
+        cursor.execute("SELECT imageID FROM SavedImages JOIN Images ON SavedImages.saved_imageID=Images.imageID WHERE img_type='TEMPL' AND userID='" + session['username'] + "'")
         data = cursor.fetchall()
         templates = []
         for row in data:

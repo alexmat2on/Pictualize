@@ -10,7 +10,9 @@
       <li><a href="/new">New Meme</a></li>
       <li><a href="/following">Following</a></li>
       <li><a href="/profile/{{ session['username'] }}">Profile</a></li>
+      {% if session['username'] == 'god' %}
       <li><a href="/godview">God View</a></li>
+      {% endif %}
     </ul>
   </div>
   <div class="logout">

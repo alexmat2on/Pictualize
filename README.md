@@ -7,7 +7,17 @@ Team Members:
 CS 336 DB Project, made in [Flask](https://code.tutsplus.com/tutorials/creating-a-web-app-from-scratch-using-python-flask-and-mysql--cms-22972).
 
 ## Summary
+Dear Professor Connor,
+
 The `sql` folder in this repo contains all the SQL code. It contains the definition of our schemas, stored procedures, and triggers for a complete project as per the specs.
+
+When users create new memes, they must select a meme template from their saved library. Of course, when the account is newly created, they _have_ no saved meme templates. Thus, we created a trigger called `TR_addDefaultTemplates` which executes **AFTER INSERT** on the `Users` table. Here's how it works:
+
+There is a special user called `god`. Through this account, we upload all templates that we wish to be default templates. A SQL View called `DefaultTemplates` uses a natural join to display all Template Image IDs belonging to `god`.
+
+The trigger will execute after a new user is inserted, and it iterates through the `DefaultTemplates` view and saves the same image IDs to `NEW.userID`. Thus, the new user now has all the same templates that `god` has.
+
+There is another special feature related to the `god` account. If you login with the username `god`, you'll expose the **godview** feature. **Godview** is a web tool that displays all the data from any table in the database in an HTML table, for your convenience. You can see all the data in the database, and also verify that using the app will properly change the database (creating a new meme creates a new record in the `Posts` table, for instance).
 
 ## To-Do
 - [x] ~~Add asset branding~~
@@ -19,7 +29,7 @@ The `sql` folder in this repo contains all the SQL code. It contains the definit
 - [ ] PROFILE PAGE: create an HTML file for the profile page. Has avatar picture, with a sidebar. Sidebar has: "Following You", "Saved Posts", "Template Library". Each opens the respective item in content area.
 - [ ] FOLLOWING PAGE: display a feed of just the posts created by the people you are following. Sidebar has list of usernames of people you're following.
 - [x] ~~NEW POST: Clicking `create` should make a new post by storing it in the database, and bring you to homepage. Use a S.P. to insert the post data. It should also use Python to generate an image with the text embedded and store it under `img_user_gen` in the static folder.~~
-- [ ] REGISTRATION: Add a trigger to save default templates in a new user's library.
+- [x] ~~REGISTRATION: Add a trigger to save default templates in a new user's library.~~
 
 ## Run
 * Install flask with `pip install flask`

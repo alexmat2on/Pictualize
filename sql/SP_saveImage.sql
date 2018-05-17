@@ -1,5 +1,5 @@
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `uploadImage` (
+CREATE DEFINER=`root`@`localhost` PROCEDURE `saveImage` (
   IN arg_imageID VARCHAR(40),
   IN arg_userID VARCHAR(25)
 )

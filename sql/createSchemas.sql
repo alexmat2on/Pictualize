@@ -1,6 +1,7 @@
 Create Database Pictualize;
 use Pictualize;
 
+/* DEFINE SCHEMAS ------------------------------------------------------------*/
 CREATE TABLE ImageTypes (
 	img_type VARCHAR(5) PRIMARY KEY
 );
@@ -68,3 +69,17 @@ CREATE TABLE Replies (
 	FOREIGN KEY (parent_post) REFERENCES Posts(postID),
 	FOREIGN KEY (reply_post) REFERENCES Posts(postID)
 );
+
+/* Add the "god" user to the database ----------------------------------------*/
+INSERT INTO Users VALUES ("god", "God", "Pictualize", "god@pictualize.com");
+
+/* Create Views --------------------------------------------------------------*/
+CREATE VIEW DefaultTemplates AS SELECT * FROM SavedImages JOIN Images ON SavedImages.saved_imageID=Images.imageID WHERE userID="god" AND img_type="TEMPL";
+
+/* Import stored procedures and triggers -------------------------------------*/
+source SP_createUser.sql;
+source SP_makePost.sql;
+source SP_saveImage.sql;
+source SP_setAvatar.sql;
+source SP_uploadImage.sql;
+source TR_addDefaultTemplates.sql;
